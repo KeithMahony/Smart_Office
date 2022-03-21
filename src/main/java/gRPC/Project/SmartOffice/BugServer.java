@@ -106,7 +106,7 @@ public class BugServer extends BugReportingServiceImplBase {
 	public StreamObserver<NewBugs> postBugs(StreamObserver<LogResponse> responseObserver) {
 		
 		// ADD FUNCTIONALITY - get employee name dynamically
-		// Test comments
+		// Test comment
 		String name = "Keith";
 		
 		ArrayList<String> bugTitles = new ArrayList<>();
