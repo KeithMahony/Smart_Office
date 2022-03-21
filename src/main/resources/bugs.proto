@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "gRPC.Project.SmartOffice";
+option java_outer_classname = "OfficeService";
+
+package bugs;
+
+service BugReportingService{
+
+	rpc logIn(LogRequest) returns (LogResponse){}
+
+	rpc getBugList(ListRequest) returns (stream ListResponse){}
+
+	rpc postBugs (stream NewBugs) returns (LogResponse){}
+
+}
+
+message LogRequest{
+	string name = 1;
+	string password = 2;
+}
+
+message LogResponse{
+	bool success = 1;
+	string message = 2;
+}
+
+message ListRequest{
+	int32 quantity = 1;
+}
+
+message ListResponse{
+	string title = 1;
+	string details = 2;
+	int32 severity = 3;
+	string reportedBy = 4;
+}
+
+message NewBugs{
+	string title = 1;
+	string details = 2;
+	int32 severity = 3;
+//	string reportedBy = 4;
+}
