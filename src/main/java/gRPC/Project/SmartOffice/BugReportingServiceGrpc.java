@@ -92,29 +92,29 @@ public final class BugReportingServiceGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.NewBugs,
-      gRPC.Project.SmartOffice.LogResponse> getPostBugsMethod;
+      gRPC.Project.SmartOffice.ListResponse> getPostBugsMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "postBugs",
       requestType = gRPC.Project.SmartOffice.NewBugs.class,
-      responseType = gRPC.Project.SmartOffice.LogResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+      responseType = gRPC.Project.SmartOffice.ListResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
   public static io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.NewBugs,
-      gRPC.Project.SmartOffice.LogResponse> getPostBugsMethod() {
-    io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.NewBugs, gRPC.Project.SmartOffice.LogResponse> getPostBugsMethod;
+      gRPC.Project.SmartOffice.ListResponse> getPostBugsMethod() {
+    io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.NewBugs, gRPC.Project.SmartOffice.ListResponse> getPostBugsMethod;
     if ((getPostBugsMethod = BugReportingServiceGrpc.getPostBugsMethod) == null) {
       synchronized (BugReportingServiceGrpc.class) {
         if ((getPostBugsMethod = BugReportingServiceGrpc.getPostBugsMethod) == null) {
           BugReportingServiceGrpc.getPostBugsMethod = getPostBugsMethod = 
-              io.grpc.MethodDescriptor.<gRPC.Project.SmartOffice.NewBugs, gRPC.Project.SmartOffice.LogResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.CLIENT_STREAMING)
+              io.grpc.MethodDescriptor.<gRPC.Project.SmartOffice.NewBugs, gRPC.Project.SmartOffice.ListResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "bugs.BugReportingService", "postBugs"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   gRPC.Project.SmartOffice.NewBugs.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  gRPC.Project.SmartOffice.LogResponse.getDefaultInstance()))
+                  gRPC.Project.SmartOffice.ListResponse.getDefaultInstance()))
                   .setSchemaDescriptor(new BugReportingServiceMethodDescriptorSupplier("postBugs"))
                   .build();
           }
@@ -158,6 +158,9 @@ public final class BugReportingServiceGrpc {
     }
 
     /**
+     * <pre>
+     * server streaming
+     * </pre>
      */
     public void getBugList(gRPC.Project.SmartOffice.ListRequest request,
         io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.ListResponse> responseObserver) {
@@ -165,9 +168,12 @@ public final class BugReportingServiceGrpc {
     }
 
     /**
+     * <pre>
+     * bi-directional streaming
+     * </pre>
      */
     public io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.NewBugs> postBugs(
-        io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.LogResponse> responseObserver) {
+        io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.ListResponse> responseObserver) {
       return asyncUnimplementedStreamingCall(getPostBugsMethod(), responseObserver);
     }
 
@@ -189,10 +195,10 @@ public final class BugReportingServiceGrpc {
                   this, METHODID_GET_BUG_LIST)))
           .addMethod(
             getPostBugsMethod(),
-            asyncClientStreamingCall(
+            asyncBidiStreamingCall(
               new MethodHandlers<
                 gRPC.Project.SmartOffice.NewBugs,
-                gRPC.Project.SmartOffice.LogResponse>(
+                gRPC.Project.SmartOffice.ListResponse>(
                   this, METHODID_POST_BUGS)))
           .build();
     }
@@ -225,6 +231,9 @@ public final class BugReportingServiceGrpc {
     }
 
     /**
+     * <pre>
+     * server streaming
+     * </pre>
      */
     public void getBugList(gRPC.Project.SmartOffice.ListRequest request,
         io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.ListResponse> responseObserver) {
@@ -233,10 +242,13 @@ public final class BugReportingServiceGrpc {
     }
 
     /**
+     * <pre>
+     * bi-directional streaming
+     * </pre>
      */
     public io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.NewBugs> postBugs(
-        io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.LogResponse> responseObserver) {
-      return asyncClientStreamingCall(
+        io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.ListResponse> responseObserver) {
+      return asyncBidiStreamingCall(
           getChannel().newCall(getPostBugsMethod(), getCallOptions()), responseObserver);
     }
   }
@@ -267,6 +279,9 @@ public final class BugReportingServiceGrpc {
     }
 
     /**
+     * <pre>
+     * server streaming
+     * </pre>
      */
     public java.util.Iterator<gRPC.Project.SmartOffice.ListResponse> getBugList(
         gRPC.Project.SmartOffice.ListRequest request) {
@@ -343,7 +358,7 @@ public final class BugReportingServiceGrpc {
       switch (methodId) {
         case METHODID_POST_BUGS:
           return (io.grpc.stub.StreamObserver<Req>) serviceImpl.postBugs(
-              (io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.LogResponse>) responseObserver);
+              (io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.ListResponse>) responseObserver);
         default:
           throw new AssertionError();
       }

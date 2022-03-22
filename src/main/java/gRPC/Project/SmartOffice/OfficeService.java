@@ -55,13 +55,13 @@ public final class OfficeService {
       "se\022\r\n\005title\030\001 \001(\t\022\017\n\007details\030\002 \001(\t\022\020\n\010se" +
       "verity\030\003 \001(\005\022\022\n\nreportedBy\030\004 \001(\t\";\n\007NewB" +
       "ugs\022\r\n\005title\030\001 \001(\t\022\017\n\007details\030\002 \001(\t\022\020\n\010s" +
-      "everity\030\003 \001(\0052\260\001\n\023BugReportingService\022.\n" +
+      "everity\030\003 \001(\0052\263\001\n\023BugReportingService\022.\n" +
       "\005logIn\022\020.bugs.LogRequest\032\021.bugs.LogRespo" +
       "nse\"\000\0227\n\ngetBugList\022\021.bugs.ListRequest\032\022" +
-      ".bugs.ListResponse\"\0000\001\0220\n\010postBugs\022\r.bug" +
-      "s.NewBugs\032\021.bugs.LogResponse\"\000(\001B+\n\030gRPC" +
-      ".Project.SmartOfficeB\rOfficeServiceP\001b\006p" +
-      "roto3"
+      ".bugs.ListResponse\"\0000\001\0223\n\010postBugs\022\r.bug" +
+      "s.NewBugs\032\022.bugs.ListResponse\"\000(\0010\001B+\n\030g" +
+      "RPC.Project.SmartOfficeB\rOfficeServiceP\001" +
+      "b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
