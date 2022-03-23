@@ -1,8 +1,15 @@
 package gRPC.Project.SmartOffice;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.InetAddress;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Properties;
+
+import javax.jmdns.JmDNS;
+import javax.jmdns.ServiceInfo;
 
 import gRPC.Project.SmartOffice.BugReportingServiceGrpc.BugReportingServiceImplBase;
 import io.grpc.Server;
@@ -12,16 +19,24 @@ import io.grpc.stub.StreamObserver;
 public class BugServer extends BugReportingServiceImplBase{
 
 	public static void main(String[] args) throws SocketException {
-
+		
+		System.out.println("Starting up Bug Reporting Service...");
+		
 		BugServer bugServer = new BugServer();
+		
+		Properties prop = bugServer.getProperties();
+		
+		bugServer.registerService(prop);
 
-		int port = 50051;
+		int port = Integer.valueOf(prop.getProperty("service_port"));
 
 		try {
-			Server server = ServerBuilder.forPort(port).addService(bugServer).build().start();
-
+			
+			Server server = ServerBuilder.forPort(port)
+					.addService(bugServer)
+					.build()
+					.start();
 			System.out.println("Bug Reporting Server listening on port " + port + "...");
-
 			server.awaitTermination();
 
 		} catch (IOException e) {
@@ -31,6 +46,62 @@ public class BugServer extends BugReportingServiceImplBase{
 			e.printStackTrace();
 		}
 
+	}
+	
+	private void registerService(Properties prop) {
+		
+		
+			try {
+				
+				JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
+				
+				String service_type = prop.getProperty("service_type");
+				String service_name = prop.getProperty("service_name");
+//				String service_description = prop.getProperty("service_description");
+				int service_port = Integer.valueOf(prop.getProperty("service_port"));
+				String service_description_properties = prop.getProperty("service_description");
+				
+				// register service
+				ServiceInfo serviceInfo = ServiceInfo.create(service_type, service_name, service_port, service_description_properties);
+				jmdns.registerService(serviceInfo);
+				
+				System.out.println("Registering Bug Service...");
+				System.out.println("Type: " + service_type);
+				System.out.println("Name: " + service_name);
+				
+				Thread.sleep(500);;
+				
+			} catch (IOException | InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
+	}
+
+	private Properties getProperties() {
+		
+		Properties prop = null;
+		
+		try(InputStream input = new FileInputStream("src/main/resources/bugs.properties")){
+			
+			prop = new Properties();
+			
+			prop.load(input);
+			
+			System.out.println("-----------Bug Service Properties------------");
+			System.out.println("Service Type: " + prop.getProperty("service_type"));
+			System.out.println("Service Name: " + prop.getProperty("service_name"));
+			System.out.println("Service Description: " + prop.getProperty("service_description"));
+			System.out.println("Service Port: " + prop.getProperty("service_port"));
+			System.out.println("----------------------------------------------");
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		return prop;
+		
 	}
 
 	// Unary RPC

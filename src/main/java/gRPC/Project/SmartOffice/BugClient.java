@@ -17,7 +17,10 @@ public class BugClient {
 	public static void main(String[] args) throws InterruptedException {
 
 		// set up channel
-		ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
+		ManagedChannel channel = ManagedChannelBuilder
+				.forAddress("localhost", 50051)
+				.usePlaintext()
+				.build();
 
 		// create stubs
 		blockingStub = BugReportingServiceGrpc.newBlockingStub(channel);
