@@ -46,6 +46,7 @@ public class SmartOfficeApplication  {
 	private JFrame frame;
 	private JTextField name;
 	private JTextField password;
+	private JTextField p;
 	private JTextArea textResponse ;
 
 	/**
@@ -158,7 +159,7 @@ public class SmartOfficeApplication  {
 	
 	private void initialize() {
 		frame = new JFrame();
-		frame.setTitle("Client - Service Controller");
+		frame.setTitle("Smart Office Application");
 		frame.setBounds(100, 100, 500, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -170,19 +171,26 @@ public class SmartOfficeApplication  {
 		frame.getContentPane().add(panel_service_1);
 		panel_service_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblNewLabel_1 = new JLabel("Number 1");
+		JLabel lblNewLabel_1 = new JLabel("Enter Name:");
 		panel_service_1.add(lblNewLabel_1);
 		
 		name = new JTextField();
 		panel_service_1.add(name);
 		name.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Number 2");
+		JLabel lblNewLabel_2 = new JLabel("Enter password:");
 		panel_service_1.add(lblNewLabel_2);
 		
 		password = new JTextField();
 		panel_service_1.add(password);
 		password.setColumns(10);
+		
+		JLabel lblNewLabel_3 = new JLabel("Enter p:");
+		panel_service_1.add(lblNewLabel_3);
+		
+		p = new JTextField();
+		panel_service_1.add(p);
+		p.setColumns(10);
 		
 		
 //		JComboBox comboOperation = new JComboBox();
@@ -190,7 +198,7 @@ public class SmartOfficeApplication  {
 //		panel_service_1.add(comboOperation);
 //	
 		
-		JButton btnCalculate = new JButton("Calculate");
+		JButton btnCalculate = new JButton("Sign In");
 		btnCalculate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -210,15 +218,16 @@ public class SmartOfficeApplication  {
 
 				LogResponse response = blockingStub.logIn(req);
 
-				textResponse.append("Success: "+ response.getSuccess() + " Message:"+ response.getMessage() + "\n");
+//				textResponse.append("Success?: "+ response.getSuccess() + " Message: "+ response.getMessage() + "\n");
+				textResponse.append("Message: "+ response.getMessage());
 				
-				System.out.println("Success: "+ response.getSuccess() + " Message:"+ response.getMessage() + "\n");
+				System.out.println("Success?: "+ response.getSuccess() + " Message: "+ response.getMessage() + "\n");
 
 			}
 		});
 		panel_service_1.add(btnCalculate);
 		
-		textResponse = new JTextArea(3, 20);
+		textResponse = new JTextArea(10, 25);
 		textResponse .setLineWrap(true);
 		textResponse.setWrapStyleWord(true);
 		

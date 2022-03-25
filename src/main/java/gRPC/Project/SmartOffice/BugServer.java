@@ -65,11 +65,11 @@ public class BugServer extends BugReportingServiceImplBase{
 				ServiceInfo serviceInfo = ServiceInfo.create(service_type, service_name, service_port, service_description_properties);
 				jmdns.registerService(serviceInfo);
 				
-				System.out.println("Registering Bug Service...");
+				System.out.println("Registered Bug Service.");
 				System.out.println("Type: " + service_type);
 				System.out.println("Name: " + service_name);
 				
-				Thread.sleep(500);;
+				Thread.sleep(200);;
 				
 			} catch (IOException | InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -95,6 +95,7 @@ public class BugServer extends BugReportingServiceImplBase{
 			System.out.println("Service Description: " + prop.getProperty("service_description"));
 			System.out.println("Service Port: " + prop.getProperty("service_port"));
 			System.out.println("----------------------------------------------");
+			System.out.println("Registering Bug Reporting Service...");
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -113,15 +114,17 @@ public class BugServer extends BugReportingServiceImplBase{
 		String message = "ERROR";
 		boolean success = false;
 
-		System.out.println(name + ", " + password);
+		System.out.println("User log in attempt with properties...");
+		System.out.println("Name: " + name);
+		System.out.println("Password: " + password);
 
 		if ((name.equals("Adam Jensen")) && (password.equals("0451"))) {
 			success = true;
-			message = "You have successfully logged in, " + name;
+			message = name + "has been logged in.";
 			System.out.println("Successfully logged in " + name);
 		} else {
 			success = false;
-			message = "This username and/or password does not exist.";
+			message = "Failed log in attempt recorded.";
 			System.out.println("Failed to log in " + name);
 		}
 
@@ -173,7 +176,7 @@ public class BugServer extends BugReportingServiceImplBase{
 //				 2 second delay
 				try {
 					Thread.currentThread();
-					Thread.sleep(1000);
+					Thread.sleep(200);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

@@ -48,6 +48,7 @@ public class BugClient {
 				
 				System.out.println("Recieving bug ");
 				value.getTitle();
+				count += 1;
 				
 			}
 
@@ -58,8 +59,7 @@ public class BugClient {
 
 			@Override
 			public void onCompleted() {
-				// TODO Auto-generated method stub
-				
+				System.out.println("Upload complete. "+ count+ " new bugs have been posted.");
 			}
 		};
 
