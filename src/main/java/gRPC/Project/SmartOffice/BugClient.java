@@ -4,6 +4,8 @@ import java.util.Iterator;
 
 import gRPC.Project.SmartOffice.BugReportingServiceGrpc.BugReportingServiceBlockingStub;
 import gRPC.Project.SmartOffice.BugReportingServiceGrpc.BugReportingServiceStub;
+import gRPC.Project.SmartOffice.ProfilingServiceGrpc.ProfilingServiceBlockingStub;
+import gRPC.Project.SmartOffice.ProfilingServiceGrpc.ProfilingServiceStub;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
@@ -11,20 +13,35 @@ import io.grpc.stub.StreamObservers;
 
 public class BugClient {
 
-	private static BugReportingServiceBlockingStub blockingStub;
-	private static BugReportingServiceStub aSyncStub;
+	private static BugReportingServiceBlockingStub bugBlockingStub;
+	private static BugReportingServiceStub bugASyncStub;
+	
+	private static ProfilingServiceBlockingStub profileBlockingStub;
+	private static ProfilingServiceStub profileASyncStub;
 
 	public static void main(String[] args) throws InterruptedException {
 
-		// set up channel
-		ManagedChannel channel = ManagedChannelBuilder
+		// set up bug channel
+		ManagedChannel BugChannel = ManagedChannelBuilder
 				.forAddress("localhost", 50051)
 				.usePlaintext()
 				.build();
+		
+		// set up profile channel
+				ManagedChannel profileChannel = ManagedChannelBuilder
+						.forAddress("localhost", 50051)
+						.usePlaintext()
+						.build();
 
-		// create stubs
-		blockingStub = BugReportingServiceGrpc.newBlockingStub(channel);
-		aSyncStub = BugReportingServiceGrpc.newStub(channel);
+		// create bug stubs
+		bugBlockingStub = BugReportingServiceGrpc.newBlockingStub(BugChannel);
+		bugASyncStub = BugReportingServiceGrpc.newStub(BugChannel);
+		
+		// create bug stubs
+		profileBlockingStub = ProfilingServiceGrpc.newBlockingStub(profileChannel);
+		profileASyncStub = ProfilingServiceGrpc.newStub(profileChannel);
+		
+		
 
 		// connect to and use server
 		
@@ -75,7 +92,7 @@ public class BugClient {
 
 		LogRequest req = LogRequest.newBuilder().setName(name).setPassword(password).build();
 
-		LogResponse response = blockingStub.logIn(req);
+		LogResponse response = profileBlockingStub.logIn(req);
 		System.out.println("Response: " + response);
 
 	}
@@ -89,7 +106,7 @@ public class BugClient {
 				.setQuantity(amountRequested)
 				.build();
 
-		Iterator<ListResponse> responses = blockingStub.getBugList(request);
+		Iterator<ListResponse> responses = bugBlockingStub.getBugList(request);
 
 		while (responses.hasNext()) {
 			ListResponse temp = responses.next();

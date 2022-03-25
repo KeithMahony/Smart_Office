@@ -2,13 +2,13 @@ syntax = "proto3";
 
 option java_multiple_files = true;
 option java_package = "gRPC.Project.SmartOffice";
-option java_outer_classname = "OfficeService";
+option java_outer_classname = "BugService";
 
 package bugs;
 
 service BugReportingService{
 
-	rpc logIn(LogRequest) returns (LogResponse){}
+//	rpc logIn(LogRequest) returns (LogResponse){}
 
 	// server streaming
 	rpc getBugList(ListRequest) returns (stream ListResponse){}

@@ -27,38 +27,6 @@ public final class BugReportingServiceGrpc {
   public static final String SERVICE_NAME = "bugs.BugReportingService";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.LogRequest,
-      gRPC.Project.SmartOffice.LogResponse> getLogInMethod;
-
-  @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "logIn",
-      requestType = gRPC.Project.SmartOffice.LogRequest.class,
-      responseType = gRPC.Project.SmartOffice.LogResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.LogRequest,
-      gRPC.Project.SmartOffice.LogResponse> getLogInMethod() {
-    io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.LogRequest, gRPC.Project.SmartOffice.LogResponse> getLogInMethod;
-    if ((getLogInMethod = BugReportingServiceGrpc.getLogInMethod) == null) {
-      synchronized (BugReportingServiceGrpc.class) {
-        if ((getLogInMethod = BugReportingServiceGrpc.getLogInMethod) == null) {
-          BugReportingServiceGrpc.getLogInMethod = getLogInMethod = 
-              io.grpc.MethodDescriptor.<gRPC.Project.SmartOffice.LogRequest, gRPC.Project.SmartOffice.LogResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(
-                  "bugs.BugReportingService", "logIn"))
-              .setSampledToLocalTracing(true)
-              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  gRPC.Project.SmartOffice.LogRequest.getDefaultInstance()))
-              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  gRPC.Project.SmartOffice.LogResponse.getDefaultInstance()))
-                  .setSchemaDescriptor(new BugReportingServiceMethodDescriptorSupplier("logIn"))
-                  .build();
-          }
-        }
-     }
-     return getLogInMethod;
-  }
-
   private static volatile io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.ListRequest,
       gRPC.Project.SmartOffice.ListResponse> getGetBugListMethod;
 
@@ -151,13 +119,6 @@ public final class BugReportingServiceGrpc {
   public static abstract class BugReportingServiceImplBase implements io.grpc.BindableService {
 
     /**
-     */
-    public void logIn(gRPC.Project.SmartOffice.LogRequest request,
-        io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.LogResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getLogInMethod(), responseObserver);
-    }
-
-    /**
      * <pre>
      * server streaming
      * </pre>
@@ -179,13 +140,6 @@ public final class BugReportingServiceGrpc {
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
-          .addMethod(
-            getLogInMethod(),
-            asyncUnaryCall(
-              new MethodHandlers<
-                gRPC.Project.SmartOffice.LogRequest,
-                gRPC.Project.SmartOffice.LogResponse>(
-                  this, METHODID_LOG_IN)))
           .addMethod(
             getGetBugListMethod(),
             asyncServerStreamingCall(
@@ -220,14 +174,6 @@ public final class BugReportingServiceGrpc {
     protected BugReportingServiceStub build(io.grpc.Channel channel,
         io.grpc.CallOptions callOptions) {
       return new BugReportingServiceStub(channel, callOptions);
-    }
-
-    /**
-     */
-    public void logIn(gRPC.Project.SmartOffice.LogRequest request,
-        io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.LogResponse> responseObserver) {
-      asyncUnaryCall(
-          getChannel().newCall(getLogInMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -272,13 +218,6 @@ public final class BugReportingServiceGrpc {
     }
 
     /**
-     */
-    public gRPC.Project.SmartOffice.LogResponse logIn(gRPC.Project.SmartOffice.LogRequest request) {
-      return blockingUnaryCall(
-          getChannel(), getLogInMethod(), getCallOptions(), request);
-    }
-
-    /**
      * <pre>
      * server streaming
      * </pre>
@@ -307,19 +246,10 @@ public final class BugReportingServiceGrpc {
         io.grpc.CallOptions callOptions) {
       return new BugReportingServiceFutureStub(channel, callOptions);
     }
-
-    /**
-     */
-    public com.google.common.util.concurrent.ListenableFuture<gRPC.Project.SmartOffice.LogResponse> logIn(
-        gRPC.Project.SmartOffice.LogRequest request) {
-      return futureUnaryCall(
-          getChannel().newCall(getLogInMethod(), getCallOptions()), request);
-    }
   }
 
-  private static final int METHODID_LOG_IN = 0;
-  private static final int METHODID_GET_BUG_LIST = 1;
-  private static final int METHODID_POST_BUGS = 2;
+  private static final int METHODID_GET_BUG_LIST = 0;
+  private static final int METHODID_POST_BUGS = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -338,10 +268,6 @@ public final class BugReportingServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_LOG_IN:
-          serviceImpl.logIn((gRPC.Project.SmartOffice.LogRequest) request,
-              (io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.LogResponse>) responseObserver);
-          break;
         case METHODID_GET_BUG_LIST:
           serviceImpl.getBugList((gRPC.Project.SmartOffice.ListRequest) request,
               (io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.ListResponse>) responseObserver);
@@ -371,7 +297,7 @@ public final class BugReportingServiceGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return gRPC.Project.SmartOffice.OfficeService.getDescriptor();
+      return gRPC.Project.SmartOffice.BugService.getDescriptor();
     }
 
     @java.lang.Override
@@ -410,7 +336,6 @@ public final class BugReportingServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new BugReportingServiceFileDescriptorSupplier())
-              .addMethod(getLogInMethod())
               .addMethod(getGetBugListMethod())
               .addMethod(getPostBugsMethod())
               .build();

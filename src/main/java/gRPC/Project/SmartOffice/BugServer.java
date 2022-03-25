@@ -105,38 +105,6 @@ public class BugServer extends BugReportingServiceImplBase{
 		
 	}
 
-	// Unary RPC
-	@Override
-	public void logIn(LogRequest request, StreamObserver<LogResponse> responseObserver) {
-
-		String name = request.getName();
-		String password = request.getPassword();
-		String message = "ERROR";
-		boolean success = false;
-
-		System.out.println("User log in attempt with properties...");
-		System.out.println("Name: " + name);
-		System.out.println("Password: " + password);
-
-		if ((name.equals("Adam Jensen")) && (password.equals("0451"))) {
-			success = true;
-			message = name + "has been logged in.";
-			System.out.println("Successfully logged in " + name);
-		} else {
-			success = false;
-			message = "Failed log in attempt recorded.";
-			System.out.println("Failed to log in " + name);
-		}
-
-		LogResponse reply = LogResponse.newBuilder().setSuccess(success).setMessage(message).build();
-
-		// return message with response
-		responseObserver.onNext(reply);
-
-		// notify complete
-		responseObserver.onCompleted();
-	}
-
 	// Client Streaming
 	@Override
 	public void getBugList(ListRequest request, StreamObserver<ListResponse> responseObserver) {

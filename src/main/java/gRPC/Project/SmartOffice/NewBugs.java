@@ -83,13 +83,13 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return gRPC.Project.SmartOffice.OfficeService.internal_static_bugs_NewBugs_descriptor;
+    return gRPC.Project.SmartOffice.BugService.internal_static_bugs_NewBugs_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return gRPC.Project.SmartOffice.OfficeService.internal_static_bugs_NewBugs_fieldAccessorTable
+    return gRPC.Project.SmartOffice.BugService.internal_static_bugs_NewBugs_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
             gRPC.Project.SmartOffice.NewBugs.class, gRPC.Project.SmartOffice.NewBugs.Builder.class);
   }
@@ -360,13 +360,13 @@ private static final long serialVersionUID = 0L;
       gRPC.Project.SmartOffice.NewBugsOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return gRPC.Project.SmartOffice.OfficeService.internal_static_bugs_NewBugs_descriptor;
+      return gRPC.Project.SmartOffice.BugService.internal_static_bugs_NewBugs_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return gRPC.Project.SmartOffice.OfficeService.internal_static_bugs_NewBugs_fieldAccessorTable
+      return gRPC.Project.SmartOffice.BugService.internal_static_bugs_NewBugs_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               gRPC.Project.SmartOffice.NewBugs.class, gRPC.Project.SmartOffice.NewBugs.Builder.class);
     }
@@ -401,7 +401,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return gRPC.Project.SmartOffice.OfficeService.internal_static_bugs_NewBugs_descriptor;
+      return gRPC.Project.SmartOffice.BugService.internal_static_bugs_NewBugs_descriptor;
     }
 
     @java.lang.Override

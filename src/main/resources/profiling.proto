@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "gRPC.Project.SmartOffice";
+option java_outer_classname = "ProfileService";
+
+package profiling;
+
+service ProfilingService{
+
+	rpc logIn(LogRequest) returns (LogResponse){}
+
+	rpc getEmployeeList(eListRequest) returns (stream eListResponse){}
+
+	rpc getAllEmployeeList(eListRequest) returns (stream eListResponse){}
+
+}
+
+message LogRequest{
+	string name = 1;
+	string password = 2;
+}
+
+message LogResponse{
+	bool success = 1;
+	string message = 2;
+}
+
+message eListRequest{
+	int32 id = 1;
+}
+
+message eListResponse{
+	string id = 1;
+	string name = 2;
+	string job = 3;
+	bool busy = 4;
+	string task = 5;
+}

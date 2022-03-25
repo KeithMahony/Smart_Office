@@ -13,6 +13,8 @@ import javax.swing.JTextField;
 
 import gRPC.Project.SmartOffice.BugReportingServiceGrpc.BugReportingServiceBlockingStub;
 import gRPC.Project.SmartOffice.BugReportingServiceGrpc.BugReportingServiceStub;
+import gRPC.Project.SmartOffice.ProfilingServiceGrpc.ProfilingServiceBlockingStub;
+import gRPC.Project.SmartOffice.ProfilingServiceGrpc.ProfilingServiceStub;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -39,8 +41,11 @@ public class SmartOfficeApplication  {
 
 	private static BugReportingServiceBlockingStub blockingStub;
 	private static BugReportingServiceStub asyncStub;
+	private static ProfilingServiceBlockingStub profileBlockingStub;
+	private static ProfilingServiceStub profileASyncStub;
 
 	private ServiceInfo bugServiceInfo;
+	private ServiceInfo profileServiceInfo;
 	
 	
 	private JFrame frame;
@@ -70,21 +75,37 @@ public class SmartOfficeApplication  {
 	 */
 	public SmartOfficeApplication() {
 		
+		// set up bug channel
 		String bug_service_type = "_bugs._tcp.local.";
-		discoverBugService(bug_service_type);
+		discoverService(bug_service_type);
 		
 		String host = bugServiceInfo.getHostAddresses()[0];
 		int port = bugServiceInfo.getPort();
 		
-		ManagedChannel channel = ManagedChannelBuilder
+		ManagedChannel bugChannel = ManagedChannelBuilder
 				.forAddress(host, port)
 				.usePlaintext()
 				.build();
+		
+		// set up profile channel
+				String profile_service_type = "_profile._tcp.local.";
+				discoverService(profile_service_type);
+				
+				host = profileServiceInfo.getHostAddresses()[0];
+				port = profileServiceInfo.getPort();
+				
+				ManagedChannel profileChannel = ManagedChannelBuilder
+						.forAddress(host, port)
+						.usePlaintext()
+						.build();
 
-		//stubs -- generate from proto
-		blockingStub = BugReportingServiceGrpc.newBlockingStub(channel);
-
-		asyncStub = BugReportingServiceGrpc.newStub(channel);
+		// create stubs -- bugs
+		blockingStub = BugReportingServiceGrpc.newBlockingStub(bugChannel);
+		asyncStub = BugReportingServiceGrpc.newStub(bugChannel);
+		
+		// create stubs -- profile
+		profileBlockingStub = ProfilingServiceGrpc.newBlockingStub(profileChannel);
+		profileASyncStub = ProfilingServiceGrpc.newStub(profileChannel);
 
 		
 		initialize();
@@ -92,7 +113,7 @@ public class SmartOfficeApplication  {
 
 	
 	
-	private void discoverBugService(String service_type) {
+	private void discoverService(String service_type) {
 		
 		
 		try {
@@ -216,7 +237,7 @@ public class SmartOfficeApplication  {
 						.setPassword(passwordEntry)
 						.build();
 
-				LogResponse response = blockingStub.logIn(req);
+				LogResponse response = profileBlockingStub.logIn(req);
 
 //				textResponse.append("Success?: "+ response.getSuccess() + " Message: "+ response.getMessage() + "\n");
 				textResponse.append("Message: "+ response.getMessage());
