@@ -287,6 +287,7 @@ public class OfficeApplication extends JFrame {
 		btnClearBugs.setBackground(Color.WHITE);
 		btnClearBugs.setFont(new Font("Segoe UI", Font.PLAIN, 10));
 		btnClearBugs.setBounds(61, 362, 84, 23);
+		btnClearBugs.setVisible(false);
 		contentPane.add(btnClearBugs);
 
 		JButton btnRequestEmployee = new JButton("Request Employee by ID");
@@ -372,40 +373,54 @@ public class OfficeApplication extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				try {
-					int idEntry = Integer.valueOf(eIdField.getText());
 
-					eListRequest req = eListRequest.newBuilder().setId(idEntry).build();
+					int idEntry = 0;
+					int bugIdEntry = 0;
 
-					Iterator<eListResponse> responses = profileBlockingStub.getEmployeeList(req);
+					idEntry = Integer.valueOf(eIdField.getText());
+					if ((idEntry > 0) && (idEntry < 5)) {
 
-					System.out.println("Printing employee to screen...");
-					textArea.append("---------Request Employee by ID----------" + "\n");
+						// Get Employee by ID
+						eListRequest req = eListRequest.newBuilder().setId(idEntry).build();
+						Iterator<eListResponse> responses = profileBlockingStub.getEmployeeList(req);
 
-					int count = 1;
+						// Get Employee's current task
+						eListResponse employee = responses.next();
+						bugIdEntry = employee.getTask();
 
-					while (responses.hasNext()) {
-						eListResponse temp = responses.next();
-						System.out.println("-----------Employee-----------");
-						System.out.println("Employee ID: " + count);
-						System.out.println("Name: " + temp.getName());
-						System.out.println("Job Title: " + temp.getJob());
-						System.out.println("Occupied: " + temp.getBusy());
-						System.out.println("Current Task: " + temp.getTask());
-
+						System.out.println("Printing employee to screen...");
+						textArea.append("---------Request Employee by ID----------" + "\n");
 						textArea.append("-----------Employee-----------" + "\n");
-						textArea.append("Employee ID: " + count + "\n");
-						textArea.append("Name: " + temp.getName() + "\n");
-						textArea.append("Job Title: " + temp.getJob() + "\n");
-						textArea.append("Occupied: " + temp.getBusy() + "\n");
-						textArea.append("Current Task: " + temp.getTask() + "\n");
+						textArea.append("Employee ID: " + idEntry + "\n");
+						textArea.append("Name: " + employee.getName() + "\n");
+						textArea.append("Job Title: " + employee.getJob() + "\n");
+						textArea.append("Occupied: " + employee.getBusy() + "\n");
+						
+						// Check if a bug is assigned to this employee
+						if (bugIdEntry > 0) {
+							// Get Bug by ID
+							BugIdRequest bugReq = BugIdRequest.newBuilder().setId(bugIdEntry).build();
+							ListResponse bug = bugBlockingStub.getBugByID(bugReq);
+							
+							textArea.append("Current Task: " + bug.getTitle() + "\n");
+							textArea.append("Task Details: " + bug.getDetails() + "\n");
+						}
+						else {
+							textArea.append("Current Task: None Assigned" + "\n");
+						}
 
-						count++;
+						System.out.println("Employee Request complete.");
+
 					}
-					System.out.println("Employee Request complete.");
+					else {
+						System.out.println("Invalid ID was entered.");
+						textArea.append("Invalid ID was entered. \n");
+					}
 
 				} catch (NumberFormatException n) {
-					n.printStackTrace();
-					textArea.append("No ID was entered. \n");
+					System.out.println("Invalid ID was entered.");
+					textArea.append("---------Request Employee by ID----------" + "\n");
+					textArea.append("Invalid ID was entered. \n");
 				}
 
 			}
@@ -414,13 +429,14 @@ public class OfficeApplication extends JFrame {
 		// Assign Bug to Employee Button
 		btnAssignBugFix.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				int idEntry = 0;
 				int bugIdEntry = 0;
 
 				try {
 					// Assign user entries after validation (catching NumberFormatExceptions)
-					if((Integer.parseInt(eIDBugField.getText()) > 0) && (Integer.parseInt(eIDBugField.getText())>0)) {
+					if ((Integer.parseInt(eIDBugField.getText()) > 0)
+							&& (Integer.parseInt(eIDBugField.getText()) > 0)) {
 						idEntry = Integer.parseInt(eIDBugField.getText());
 						bugIdEntry = Integer.parseInt(bugIdField.getText());
 					}
@@ -430,7 +446,7 @@ public class OfficeApplication extends JFrame {
 
 						// Get Employee by ID
 						eListRequest req = eListRequest.newBuilder().setId(idEntry).build();
-						Iterator<eListResponse> employee = profileBlockingStub.getEmployeeList(req);
+						Iterator<eListResponse> response = profileBlockingStub.getEmployeeList(req);
 
 						// Get Bug by ID
 						BugIdRequest bugReq = BugIdRequest.newBuilder().setId(bugIdEntry).build();
@@ -441,37 +457,30 @@ public class OfficeApplication extends JFrame {
 
 						boolean updatedStatus = true;
 
-						while (employee.hasNext()) {
-							eListResponse temp = employee.next();
-							System.out.println("-----------Employee-----------");
-							System.out.println("Name: " + temp.getName());
-							System.out.println("Job Title: " + temp.getJob());
-							System.out.println("Occupied (before update): " + temp.getBusy());
-							System.out.println("Occupied: " + updatedStatus);
-							System.out.println("Updated Task: " + bug.getTitle() + "\n");
-							System.out.println("Task Details: " + bug.getDetails() + "\n");
+						eListResponse employee = response.next();
 
-							textArea.append("-----------Employee-----------" + "\n");
-							textArea.append("Name: " + temp.getName() + "\n");
-							textArea.append("Job Title: " + temp.getJob() + "\n");
-							textArea.append("Occupied (before update): " + temp.getBusy() + "\n");
-							textArea.append("Occupied: " + updatedStatus + "\n");
-							textArea.append("Updated Task: " + bug.getTitle() + "\n");
-							textArea.append("Task Details: " + bug.getDetails() + "\n");
+						textArea.append("-----------Employee-----------" + "\n");
+						textArea.append("Name: " + employee.getName() + "\n");
+						textArea.append("Job Title: " + employee.getJob() + "\n");
+						textArea.append("Occupied (before update): " + employee.getBusy() + "\n");
+						textArea.append("Occupied: " + updatedStatus + "\n");
+						textArea.append("Updated Task: " + bug.getTitle() + "\n");
+						textArea.append("Task Details: " + bug.getDetails() + "\n");
 
-							if (temp.getBusy() == true) {
-								textArea.append("\n" + "Previous task assigned to employee has been removed and "
-										+ "added back to the unassigned Bug List." + "\n");
-							}
-
+						// Automatic update of Bug Reporting Service
+						if (employee.getBusy() == true) {
+							textArea.append("\n" + "**Previous task assigned to employee has been removed and "
+									+ "added back to the unassigned Bug List.**" + "\n");
 						}
+
 						System.out.println("Employee Bug Assignment complete.");
 					} else {
 						textArea.append("Invalid employee or bug ID entered. \n");
 					}
 				} catch (NumberFormatException n) {
-					n.printStackTrace();
-					textArea.append("No ID was entered. \n");
+					System.out.println("No ID was entered.");
+					textArea.append("---------Assign Bug to Employee by ID----------" + "\n");
+					textArea.append("Invalid Employee ID and/or Bug ID was entered. \n");
 				}
 
 			}
@@ -495,27 +504,36 @@ public class OfficeApplication extends JFrame {
 
 					while (responses.hasNext()) {
 						eListResponse temp = responses.next();
-						System.out.println("-----------Employee-----------");
-						System.out.println("Employee ID: " + count);
-						System.out.println("Name: " + temp.getName());
-						System.out.println("Job Title: " + temp.getJob());
-						System.out.println("Occupied: " + temp.getBusy());
-						System.out.println("Current Task: " + temp.getTask());
+						
+						// Get Employee's current task 
+						int bugIdEntry = temp.getTask();
 
 						textArea.append("-----------Employee-----------" + "\n");
 						textArea.append("Employee ID: " + count + "\n");
 						textArea.append("Name: " + temp.getName() + "\n");
 						textArea.append("Job Title: " + temp.getJob() + "\n");
 						textArea.append("Occupied: " + temp.getBusy() + "\n");
-						textArea.append("Current Task: " + temp.getTask() + "\n");
+						
+						// Check if a bug is assigned to this employee
+						if (bugIdEntry > 0) {
+							// Get Bug by ID
+							BugIdRequest bugReq = BugIdRequest.newBuilder().setId(bugIdEntry).build();
+							ListResponse bug = bugBlockingStub.getBugByID(bugReq);
+							
+							textArea.append("Current Task: " + bug.getTitle() + "\n");
+							textArea.append("Task Details: " + bug.getDetails() + "\n");
+						}
+						else {
+							textArea.append("Current Task: None Assigned" + "\n");
+						}
 
 						count++;
 					}
 					System.out.println("Employee Request complete.");
 
 				} catch (NumberFormatException n) {
-					n.printStackTrace();
-					textArea.append("No ID was entered. \n");
+//					System.out.println("No ID was entered.");
+//					textArea.append("No ID was entered. \n");
 				}
 
 			}
@@ -552,7 +570,7 @@ public class OfficeApplication extends JFrame {
 					System.out.println("Bug Request complete.");
 
 				} catch (NumberFormatException n) {
-					n.printStackTrace();
+					System.out.println("Invalid was entered.");
 					textArea.append("No number was entered. \n");
 				}
 
@@ -562,19 +580,31 @@ public class OfficeApplication extends JFrame {
 		// Add Bug Entry Button
 		btnAddBug.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					// Get user entries
+					String title = bTitleField.getText();
+					String desc = bDescField.getText();
+					int severity = Integer.valueOf(bSeverityField.getText());
 
-				// Get user entries
-				String title = bTitleField.getText();
-				String desc = bDescField.getText();
-				int severity = Integer.valueOf(bSeverityField.getText());
+					if ((severity > 0) && (severity < 6)) {
+						bugTitles.add(title);
+						bugDetails.add(desc);
+						bugSeverities.add(severity);
 
-				bugTitles.add(title);
-				bugDetails.add(desc);
-				bugSeverities.add(severity);
+						lblBugsStored.setVisible(true);
+						btnClearBugs.setVisible(true);
+						String stored = (Integer.toString(bugTitles.size()));
+						lblBugsStored.setText(stored + " bugs ready to post.");
+					} else {
+						System.out.println("Invalid bug severity was entered.");
+						textArea.append("Bug Severity must be rated 1-5. \n");
+					}
 
-				lblBugsStored.setVisible(true);
-				String stored = (Integer.toString(bugTitles.size()));
-				lblBugsStored.setText(stored + " bugs ready to post.");
+				} catch (NumberFormatException numb) {
+					System.out.println("Invalid bug was entered.");
+					textArea.append("Bug entry is invalid. \n");
+				}
+
 			}
 
 		});

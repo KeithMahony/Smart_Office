@@ -43,12 +43,7 @@ public interface eListResponseOrBuilder extends
   boolean getBusy();
 
   /**
-   * <code>string task = 5;</code>
+   * <code>int32 task = 5;</code>
    */
-  java.lang.String getTask();
-  /**
-   * <code>string task = 5;</code>
-   */
-  com.google.protobuf.ByteString
-      getTaskBytes();
+  int getTask();
 }

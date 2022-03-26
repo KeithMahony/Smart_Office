@@ -35,5 +35,5 @@ message eListResponse{
 	string name = 2;
 	string job = 3;
 	bool busy = 4;
-	string task = 5;
+	int32 task = 5;
 }

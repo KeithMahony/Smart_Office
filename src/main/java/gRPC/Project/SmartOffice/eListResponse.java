@@ -20,7 +20,7 @@ private static final long serialVersionUID = 0L;
     name_ = "";
     job_ = "";
     busy_ = false;
-    task_ = "";
+    task_ = 0;
   }
 
   @java.lang.Override
@@ -70,10 +70,9 @@ private static final long serialVersionUID = 0L;
             busy_ = input.readBool();
             break;
           }
-          case 42: {
-            java.lang.String s = input.readStringRequireUtf8();
+          case 40: {
 
-            task_ = s;
+            task_ = input.readInt32();
             break;
           }
           default: {
@@ -220,37 +219,12 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int TASK_FIELD_NUMBER = 5;
-  private volatile java.lang.Object task_;
+  private int task_;
   /**
-   * <code>string task = 5;</code>
+   * <code>int32 task = 5;</code>
    */
-  public java.lang.String getTask() {
-    java.lang.Object ref = task_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      task_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>string task = 5;</code>
-   */
-  public com.google.protobuf.ByteString
-      getTaskBytes() {
-    java.lang.Object ref = task_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      task_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
+  public int getTask() {
+    return task_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -279,8 +253,8 @@ private static final long serialVersionUID = 0L;
     if (busy_ != false) {
       output.writeBool(4, busy_);
     }
-    if (!getTaskBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, task_);
+    if (task_ != 0) {
+      output.writeInt32(5, task_);
     }
     unknownFields.writeTo(output);
   }
@@ -304,8 +278,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBoolSize(4, busy_);
     }
-    if (!getTaskBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, task_);
+    if (task_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(5, task_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -331,8 +306,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getJob());
     result = result && (getBusy()
         == other.getBusy());
-    result = result && getTask()
-        .equals(other.getTask());
+    result = result && (getTask()
+        == other.getTask());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -354,7 +329,7 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
         getBusy());
     hash = (37 * hash) + TASK_FIELD_NUMBER;
-    hash = (53 * hash) + getTask().hashCode();
+    hash = (53 * hash) + getTask();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -496,7 +471,7 @@ private static final long serialVersionUID = 0L;
 
       busy_ = false;
 
-      task_ = "";
+      task_ = 0;
 
       return this;
     }
@@ -592,9 +567,8 @@ private static final long serialVersionUID = 0L;
       if (other.getBusy() != false) {
         setBusy(other.getBusy());
       }
-      if (!other.getTask().isEmpty()) {
-        task_ = other.task_;
-        onChanged();
+      if (other.getTask() != 0) {
+        setTask(other.getTask());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -858,71 +832,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object task_ = "";
+    private int task_ ;
     /**
-     * <code>string task = 5;</code>
+     * <code>int32 task = 5;</code>
      */
-    public java.lang.String getTask() {
-      java.lang.Object ref = task_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        task_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
+    public int getTask() {
+      return task_;
     }
     /**
-     * <code>string task = 5;</code>
+     * <code>int32 task = 5;</code>
      */
-    public com.google.protobuf.ByteString
-        getTaskBytes() {
-      java.lang.Object ref = task_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        task_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>string task = 5;</code>
-     */
-    public Builder setTask(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
+    public Builder setTask(int value) {
+      
       task_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string task = 5;</code>
+     * <code>int32 task = 5;</code>
      */
     public Builder clearTask() {
       
-      task_ = getDefaultInstance().getTask();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string task = 5;</code>
-     */
-    public Builder setTaskBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      task_ = value;
+      task_ = 0;
       onChanged();
       return this;
     }

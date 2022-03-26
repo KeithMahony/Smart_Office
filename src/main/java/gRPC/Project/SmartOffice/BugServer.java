@@ -40,10 +40,10 @@ public class BugServer extends BugReportingServiceImplBase{
 			server.awaitTermination();
 
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 
 	}
@@ -109,7 +109,7 @@ public class BugServer extends BugReportingServiceImplBase{
 	public void getBugList(ListRequest request, StreamObserver<ListResponse> responseObserver) {
 
 		String[] bugTitles;
-		bugTitles = new String[] { "Balancing", "Design", "Physics", "Design" };
+		bugTitles = new String[] { "", "Balancing Bug", "Design Bug", "Physics Bug", "Design Bug" };
 
 		String[] bugDetails;
 		bugDetails = new String[] { "XP gain not high enough...", "Area not clear enough for player...",
@@ -159,7 +159,7 @@ public class BugServer extends BugReportingServiceImplBase{
 	public void getBugByID(BugIdRequest request, StreamObserver<ListResponse> responseObserver) {
 
 			String[] bugTitles;
-			bugTitles = new String[] { "", "Balancing", "Design", "Physics", "Design" };
+			bugTitles = new String[] { "", "Balancing Bug", "Design Bug", "Physics Bug", "Design Bug" };
 
 			String[] bugDetails;
 			bugDetails = new String[] { "","XP gain not high enough...", "Area not clear enough for player...",

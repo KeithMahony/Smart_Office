@@ -133,16 +133,16 @@ public class ProfilingServer extends ProfilingServiceImplBase {
 	public void getEmployeeList(eListRequest request, StreamObserver<eListResponse> responseObserver) {
 
 		String[] eNames;
-		eNames = new String[] { "", "Eric Garcia", "Frenkie De Jong", "Gerard Pique", "Lionel Messi" };
+		eNames = new String[] { "Adam Jensen", "Eric Garcia", "Frenkie De Jong", "Gerard Pique", "Lionel Messi" };
 
 		String[] jobs;
-		jobs = new String[] { "", "Level Design", "Creative Director", "Art", "Animation" };
+		jobs = new String[] { "Manager", "Level Design", "Creative Director", "Art", "Animation" };
 
 		Boolean[] busy;
 		busy = new Boolean[] { false, true, false, false, false };
 
-		String[] tasksAssigned;
-		tasksAssigned = new String[] { "", "Level Design", "Creative Director", "Art", "Animation" };
+		int[] tasksAssigned; // Bug ID
+		tasksAssigned = new int[] { 0, 2, 0, 0, 0 };
 
 		int id = request.getId();
 
@@ -171,16 +171,16 @@ public class ProfilingServer extends ProfilingServiceImplBase {
 	public void getAllEmployeeList(eListRequest request, StreamObserver<eListResponse> responseObserver) {
 
 		String[] eNames;
-		eNames = new String[] { "", "Eric Garcia", "Frenkie De Jong", "Gerard Pique", "Lionel Messi" };
+		eNames = new String[] { "Adam Jensen", "Eric Garcia", "Frenkie De Jong", "Gerard Pique", "Lionel Messi" };
 
 		String[] jobs;
-		jobs = new String[] { "", "Level Design", "Creative Director", "Art", "Animation" };
+		jobs = new String[] { "Manager", "Level Design", "Creative Director", "Art", "Animation" };
 
 		Boolean[] busy;
 		busy = new Boolean[] { false, true, false, false, false };
 
-		String[] tasksAssigned;
-		tasksAssigned = new String[] { "", "Level Design", "Creative Director", "Art", "Animation" };
+		int[] tasksAssigned;
+		tasksAssigned = new int[] { 0, 2, 0, 0, 0 };
 
 		for (int i = 1; i < eNames.length; i++) {
 			eListResponse reply = eListResponse.newBuilder().setName(eNames[i]).setJob(jobs[i]).setBusy(busy[i])

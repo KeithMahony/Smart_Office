@@ -48,7 +48,7 @@ public final class ProfileService {
       "gResponse\022\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002 " +
       "\001(\t\"\032\n\014eListRequest\022\n\n\002id\030\001 \001(\005\"R\n\reList" +
       "Response\022\n\n\002id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\013\n\003jo" +
-      "b\030\003 \001(\t\022\014\n\004busy\030\004 \001(\010\022\014\n\004task\030\005 \001(\t2\343\001\n\020" +
+      "b\030\003 \001(\t\022\014\n\004busy\030\004 \001(\010\022\014\n\004task\030\005 \001(\0052\343\001\n\020" +
       "ProfilingService\0228\n\005logIn\022\025.profiling.Lo" +
       "gRequest\032\026.profiling.LogResponse\"\000\022H\n\017ge" +
       "tEmployeeList\022\027.profiling.eListRequest\032\030" +
