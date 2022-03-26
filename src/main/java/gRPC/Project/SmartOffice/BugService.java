@@ -30,6 +30,11 @@ public final class BugService {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_bugs_ListRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_bugs_BugIdRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_bugs_BugIdRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_bugs_ListResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -51,15 +56,18 @@ public final class BugService {
       "\n\nbugs.proto\022\004bugs\",\n\nLogRequest\022\014\n\004name" +
       "\030\001 \001(\t\022\020\n\010password\030\002 \001(\t\"/\n\013LogResponse\022" +
       "\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\"\037\n\013Lis" +
-      "tRequest\022\020\n\010quantity\030\001 \001(\005\"T\n\014ListRespon" +
-      "se\022\r\n\005title\030\001 \001(\t\022\017\n\007details\030\002 \001(\t\022\020\n\010se" +
-      "verity\030\003 \001(\005\022\022\n\nreportedBy\030\004 \001(\t\";\n\007NewB" +
-      "ugs\022\r\n\005title\030\001 \001(\t\022\017\n\007details\030\002 \001(\t\022\020\n\010s" +
-      "everity\030\003 \001(\0052\203\001\n\023BugReportingService\0227\n" +
-      "\ngetBugList\022\021.bugs.ListRequest\032\022.bugs.Li" +
-      "stResponse\"\0000\001\0223\n\010postBugs\022\r.bugs.NewBug" +
-      "s\032\022.bugs.ListResponse\"\000(\0010\001B(\n\030gRPC.Proj" +
-      "ect.SmartOfficeB\nBugServiceP\001b\006proto3"
+      "tRequest\022\020\n\010quantity\030\001 \001(\005\"\032\n\014BugIdReque" +
+      "st\022\n\n\002id\030\001 \001(\005\"T\n\014ListResponse\022\r\n\005title\030" +
+      "\001 \001(\t\022\017\n\007details\030\002 \001(\t\022\020\n\010severity\030\003 \001(\005" +
+      "\022\022\n\nreportedBy\030\004 \001(\t\";\n\007NewBugs\022\r\n\005title" +
+      "\030\001 \001(\t\022\017\n\007details\030\002 \001(\t\022\020\n\010severity\030\003 \001(" +
+      "\0052\273\001\n\023BugReportingService\0227\n\ngetBugList\022" +
+      "\021.bugs.ListRequest\032\022.bugs.ListResponse\"\000" +
+      "0\001\0226\n\ngetBugByID\022\022.bugs.BugIdRequest\032\022.b" +
+      "ugs.ListResponse\"\000\0223\n\010postBugs\022\r.bugs.Ne" +
+      "wBugs\032\022.bugs.ListResponse\"\000(\0010\001B(\n\030gRPC." +
+      "Project.SmartOfficeB\nBugServiceP\001b\006proto" +
+      "3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -91,14 +99,20 @@ public final class BugService {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bugs_ListRequest_descriptor,
         new java.lang.String[] { "Quantity", });
-    internal_static_bugs_ListResponse_descriptor =
+    internal_static_bugs_BugIdRequest_descriptor =
       getDescriptor().getMessageTypes().get(3);
+    internal_static_bugs_BugIdRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_bugs_BugIdRequest_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_bugs_ListResponse_descriptor =
+      getDescriptor().getMessageTypes().get(4);
     internal_static_bugs_ListResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bugs_ListResponse_descriptor,
         new java.lang.String[] { "Title", "Details", "Severity", "ReportedBy", });
     internal_static_bugs_NewBugs_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_bugs_NewBugs_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_bugs_NewBugs_descriptor,

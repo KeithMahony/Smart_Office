@@ -50,7 +50,6 @@ public class BugServer extends BugReportingServiceImplBase{
 	
 	private void registerService(Properties prop) {
 		
-		
 			try {
 				
 				JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
@@ -156,6 +155,49 @@ public class BugServer extends BugReportingServiceImplBase{
 		responseObserver.onCompleted();
 
 	}
+	@Override
+	public void getBugByID(BugIdRequest request, StreamObserver<ListResponse> responseObserver) {
+
+			String[] bugTitles;
+			bugTitles = new String[] { "", "Balancing", "Design", "Physics", "Design" };
+
+			String[] bugDetails;
+			bugDetails = new String[] { "","XP gain not high enough...", "Area not clear enough for player...",
+					"Falling through the ground at this location...", "Level is too complicated..." };
+
+			String[] bugReporters;
+			bugReporters = new String[] { "","John Jones", "Bill Bones", "Allan Stones", "Bill Bones" };
+
+			int[] bugSeverities;
+			bugSeverities = new int[] {0, 1, 2, 5, 3 };
+			
+			int id = request.getId();
+
+			if ((id > 0) && (id < 5)) {
+					ListResponse reply = ListResponse.newBuilder()
+							.setTitle(bugTitles[id])
+							.setDetails(bugDetails[id])
+							.setSeverity(bugSeverities[id])
+							.setReportedBy(bugReporters[id])
+							.build();
+
+					responseObserver.onNext(reply);
+
+//					 2 second delay
+					try {
+						Thread.currentThread();
+						Thread.sleep(200);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			else {
+				System.out.println("Error: Invalid Bug ID requested.");
+			}
+
+			responseObserver.onCompleted();
+
+		}
 
 	// Bi-directional Streaming
 	@Override

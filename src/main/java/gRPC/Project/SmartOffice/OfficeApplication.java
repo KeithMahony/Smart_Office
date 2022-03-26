@@ -67,6 +67,8 @@ public class OfficeApplication extends JFrame {
 	private ArrayList<Integer> bugSeverities = new ArrayList<>();
 	private ArrayList<String> bugReporters = new ArrayList<>();
 	private JTextField eIdField;
+	private JTextField bugIdField;
+	private JTextField eIDBugField;
 
 	/**
 	 * Launch the application.
@@ -162,7 +164,7 @@ public class OfficeApplication extends JFrame {
 		contentPane.add(lblEmployeeProfiling);
 
 		JButton btnLogin = new JButton("Sign In");
-		btnLogin.setBackground(Color.GREEN);
+		btnLogin.setBackground(Color.CYAN);
 		btnLogin.setFont(new Font("Segoe UI", Font.PLAIN, 10));
 		btnLogin.setBounds(313, 152, 67, 23);
 		contentPane.add(btnLogin);
@@ -184,7 +186,7 @@ public class OfficeApplication extends JFrame {
 		contentPane.add(bQuantityField);
 
 		JButton btnRequestBugList = new JButton("Request Bug List");
-		btnRequestBugList.setBackground(Color.GREEN);
+		btnRequestBugList.setBackground(Color.CYAN);
 		btnRequestBugList.setFont(new Font("Segoe UI", Font.PLAIN, 10));
 		btnRequestBugList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -227,7 +229,7 @@ public class OfficeApplication extends JFrame {
 		contentPane.add(bSeverityField);
 
 		JButton btnPostNewBug = new JButton("Post Bug(s)");
-		btnPostNewBug.setBackground(Color.GREEN);
+		btnPostNewBug.setBackground(Color.CYAN);
 		btnPostNewBug.setFont(new Font("Segoe UI", Font.PLAIN, 10));
 		btnPostNewBug.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -256,7 +258,7 @@ public class OfficeApplication extends JFrame {
 		contentPane.setVisible(true);
 
 		JButton btnAddBug = new JButton("Add Entry");
-		btnAddBug.setBackground(Color.CYAN);
+		btnAddBug.setBackground(Color.GREEN);
 		btnAddBug.setFont(new Font("Segoe UI", Font.PLAIN, 10));
 		btnAddBug.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -296,19 +298,47 @@ public class OfficeApplication extends JFrame {
 		eIdField = new JTextField();
 		eIdField.setFont(new Font("Segoe UI", Font.PLAIN, 10));
 		eIdField.setColumns(10);
-		eIdField.setBounds(336, 198, 44, 20);
+		eIdField.setBounds(354, 195, 44, 20);
 		contentPane.add(eIdField);
 
-		JLabel lblId = new JLabel("ID:");
+		JLabel lblId = new JLabel("Employee ID:");
 		lblId.setFont(new Font("Segoe UI", Font.PLAIN, 10));
-		lblId.setBounds(313, 201, 25, 14);
+		lblId.setBounds(287, 198, 67, 14);
 		contentPane.add(lblId);
 
 		JButton btnRequestAllEmployees = new JButton("Request all Employees");
 		btnRequestAllEmployees.setFont(new Font("Segoe UI", Font.PLAIN, 10));
-		btnRequestAllEmployees.setBackground(Color.GREEN);
+		btnRequestAllEmployees.setBackground(Color.CYAN);
 		btnRequestAllEmployees.setBounds(272, 263, 153, 23);
 		contentPane.add(btnRequestAllEmployees);
+
+		JLabel lblBugId = new JLabel("Bug ID:");
+		lblBugId.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		lblBugId.setBounds(309, 337, 35, 14);
+		contentPane.add(lblBugId);
+
+		bugIdField = new JTextField();
+		bugIdField.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		bugIdField.setColumns(10);
+		bugIdField.setBounds(354, 334, 44, 20);
+		contentPane.add(bugIdField);
+
+		JButton btnAssignBugFix = new JButton("Assign Bug Fix");
+		btnAssignBugFix.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		btnAssignBugFix.setBackground(Color.CYAN);
+		btnAssignBugFix.setBounds(276, 362, 149, 23);
+		contentPane.add(btnAssignBugFix);
+
+		eIDBugField = new JTextField();
+		eIDBugField.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		eIDBugField.setColumns(10);
+		eIDBugField.setBounds(354, 306, 44, 20);
+		contentPane.add(eIDBugField);
+
+		JLabel lblId_1 = new JLabel("Employee ID:");
+		lblId_1.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		lblId_1.setBounds(287, 309, 67, 14);
+		contentPane.add(lblId_1);
 
 		// Clear Terminal Button
 		btnClearText.addActionListener(new ActionListener() {
@@ -317,6 +347,7 @@ public class OfficeApplication extends JFrame {
 			}
 		});
 
+		// EMPLOYEE PROFILING SERVICE
 		// Employee Sign In Button
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -349,7 +380,7 @@ public class OfficeApplication extends JFrame {
 
 					System.out.println("Printing employee to screen...");
 					textArea.append("---------Request Employee by ID----------" + "\n");
-					
+
 					int count = 1;
 
 					while (responses.hasNext()) {
@@ -364,14 +395,80 @@ public class OfficeApplication extends JFrame {
 						textArea.append("-----------Employee-----------" + "\n");
 						textArea.append("Employee ID: " + count + "\n");
 						textArea.append("Name: " + temp.getName() + "\n");
-						textArea.append("Job Title: " + temp.getJob()+ "\n");
+						textArea.append("Job Title: " + temp.getJob() + "\n");
 						textArea.append("Occupied: " + temp.getBusy() + "\n");
 						textArea.append("Current Task: " + temp.getTask() + "\n");
-						
-						count++ ;
+
+						count++;
 					}
 					System.out.println("Employee Request complete.");
 
+				} catch (NumberFormatException n) {
+					n.printStackTrace();
+					textArea.append("No ID was entered. \n");
+				}
+
+			}
+		});
+
+		// Assign Bug to Employee Button
+		btnAssignBugFix.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				int idEntry = 0;
+				int bugIdEntry = 0;
+
+				try {
+					// Assign user entries after validation (catching NumberFormatExceptions)
+					if((Integer.parseInt(eIDBugField.getText()) > 0) && (Integer.parseInt(eIDBugField.getText())>0)) {
+						idEntry = Integer.parseInt(eIDBugField.getText());
+						bugIdEntry = Integer.parseInt(bugIdField.getText());
+					}
+
+					// basic front end validation and feedback
+					if ((idEntry > 0) && (idEntry < 5) && (bugIdEntry > 0) && (bugIdEntry < 5)) {
+
+						// Get Employee by ID
+						eListRequest req = eListRequest.newBuilder().setId(idEntry).build();
+						Iterator<eListResponse> employee = profileBlockingStub.getEmployeeList(req);
+
+						// Get Bug by ID
+						BugIdRequest bugReq = BugIdRequest.newBuilder().setId(bugIdEntry).build();
+						ListResponse bug = bugBlockingStub.getBugByID(bugReq);
+
+						System.out.println("Printing updated employee to screen...");
+						textArea.append("---------Assign Bug to Employee by ID----------" + "\n");
+
+						boolean updatedStatus = true;
+
+						while (employee.hasNext()) {
+							eListResponse temp = employee.next();
+							System.out.println("-----------Employee-----------");
+							System.out.println("Name: " + temp.getName());
+							System.out.println("Job Title: " + temp.getJob());
+							System.out.println("Occupied (before update): " + temp.getBusy());
+							System.out.println("Occupied: " + updatedStatus);
+							System.out.println("Updated Task: " + bug.getTitle() + "\n");
+							System.out.println("Task Details: " + bug.getDetails() + "\n");
+
+							textArea.append("-----------Employee-----------" + "\n");
+							textArea.append("Name: " + temp.getName() + "\n");
+							textArea.append("Job Title: " + temp.getJob() + "\n");
+							textArea.append("Occupied (before update): " + temp.getBusy() + "\n");
+							textArea.append("Occupied: " + updatedStatus + "\n");
+							textArea.append("Updated Task: " + bug.getTitle() + "\n");
+							textArea.append("Task Details: " + bug.getDetails() + "\n");
+
+							if (temp.getBusy() == true) {
+								textArea.append("\n" + "Previous task assigned to employee has been removed and "
+										+ "added back to the unassigned Bug List." + "\n");
+							}
+
+						}
+						System.out.println("Employee Bug Assignment complete.");
+					} else {
+						textArea.append("Invalid employee or bug ID entered. \n");
+					}
 				} catch (NumberFormatException n) {
 					n.printStackTrace();
 					textArea.append("No ID was entered. \n");
@@ -408,11 +505,11 @@ public class OfficeApplication extends JFrame {
 						textArea.append("-----------Employee-----------" + "\n");
 						textArea.append("Employee ID: " + count + "\n");
 						textArea.append("Name: " + temp.getName() + "\n");
-						textArea.append("Job Title: " + temp.getJob()+ "\n");
+						textArea.append("Job Title: " + temp.getJob() + "\n");
 						textArea.append("Occupied: " + temp.getBusy() + "\n");
 						textArea.append("Current Task: " + temp.getTask() + "\n");
-						
-						count++ ;
+
+						count++;
 					}
 					System.out.println("Employee Request complete.");
 
@@ -424,6 +521,7 @@ public class OfficeApplication extends JFrame {
 			}
 		});
 
+		// BUG REPORTING SERVICE
 		// Request Bug List Button
 		btnRequestBugList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -432,7 +530,6 @@ public class OfficeApplication extends JFrame {
 					int quantityEntry = Integer.valueOf(bQuantityField.getText());
 
 					ListRequest req = ListRequest.newBuilder().setQuantity(quantityEntry).build();
-
 					Iterator<ListResponse> responses = bugBlockingStub.getBugList(req);
 
 					System.out.println("Printing bugs to screen...");

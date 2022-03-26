@@ -8,12 +8,11 @@ package bugs;
 
 service BugReportingService{
 
-//	rpc logIn(LogRequest) returns (LogResponse){}
-
 	// server streaming
 	rpc getBugList(ListRequest) returns (stream ListResponse){}
 
-	// bi-directional streaming
+	rpc getBugByID(BugIdRequest) returns (ListResponse){}
+
 	rpc postBugs (stream NewBugs) returns (stream ListResponse){}
 
 }
@@ -30,6 +29,10 @@ message LogResponse{
 
 message ListRequest{
 	int32 quantity = 1;
+}
+
+message BugIdRequest{
+	int32 id = 1;
 }
 
 message ListResponse{

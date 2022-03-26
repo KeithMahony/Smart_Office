@@ -59,6 +59,38 @@ public final class BugReportingServiceGrpc {
      return getGetBugListMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.BugIdRequest,
+      gRPC.Project.SmartOffice.ListResponse> getGetBugByIDMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "getBugByID",
+      requestType = gRPC.Project.SmartOffice.BugIdRequest.class,
+      responseType = gRPC.Project.SmartOffice.ListResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.BugIdRequest,
+      gRPC.Project.SmartOffice.ListResponse> getGetBugByIDMethod() {
+    io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.BugIdRequest, gRPC.Project.SmartOffice.ListResponse> getGetBugByIDMethod;
+    if ((getGetBugByIDMethod = BugReportingServiceGrpc.getGetBugByIDMethod) == null) {
+      synchronized (BugReportingServiceGrpc.class) {
+        if ((getGetBugByIDMethod = BugReportingServiceGrpc.getGetBugByIDMethod) == null) {
+          BugReportingServiceGrpc.getGetBugByIDMethod = getGetBugByIDMethod = 
+              io.grpc.MethodDescriptor.<gRPC.Project.SmartOffice.BugIdRequest, gRPC.Project.SmartOffice.ListResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "bugs.BugReportingService", "getBugByID"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  gRPC.Project.SmartOffice.BugIdRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  gRPC.Project.SmartOffice.ListResponse.getDefaultInstance()))
+                  .setSchemaDescriptor(new BugReportingServiceMethodDescriptorSupplier("getBugByID"))
+                  .build();
+          }
+        }
+     }
+     return getGetBugByIDMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.NewBugs,
       gRPC.Project.SmartOffice.ListResponse> getPostBugsMethod;
 
@@ -129,9 +161,13 @@ public final class BugReportingServiceGrpc {
     }
 
     /**
-     * <pre>
-     * bi-directional streaming
-     * </pre>
+     */
+    public void getBugByID(gRPC.Project.SmartOffice.BugIdRequest request,
+        io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.ListResponse> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetBugByIDMethod(), responseObserver);
+    }
+
+    /**
      */
     public io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.NewBugs> postBugs(
         io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.ListResponse> responseObserver) {
@@ -147,6 +183,13 @@ public final class BugReportingServiceGrpc {
                 gRPC.Project.SmartOffice.ListRequest,
                 gRPC.Project.SmartOffice.ListResponse>(
                   this, METHODID_GET_BUG_LIST)))
+          .addMethod(
+            getGetBugByIDMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                gRPC.Project.SmartOffice.BugIdRequest,
+                gRPC.Project.SmartOffice.ListResponse>(
+                  this, METHODID_GET_BUG_BY_ID)))
           .addMethod(
             getPostBugsMethod(),
             asyncBidiStreamingCall(
@@ -188,9 +231,14 @@ public final class BugReportingServiceGrpc {
     }
 
     /**
-     * <pre>
-     * bi-directional streaming
-     * </pre>
+     */
+    public void getBugByID(gRPC.Project.SmartOffice.BugIdRequest request,
+        io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.ListResponse> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getGetBugByIDMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
      */
     public io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.NewBugs> postBugs(
         io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.ListResponse> responseObserver) {
@@ -227,6 +275,13 @@ public final class BugReportingServiceGrpc {
       return blockingServerStreamingCall(
           getChannel(), getGetBugListMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public gRPC.Project.SmartOffice.ListResponse getBugByID(gRPC.Project.SmartOffice.BugIdRequest request) {
+      return blockingUnaryCall(
+          getChannel(), getGetBugByIDMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -246,10 +301,19 @@ public final class BugReportingServiceGrpc {
         io.grpc.CallOptions callOptions) {
       return new BugReportingServiceFutureStub(channel, callOptions);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<gRPC.Project.SmartOffice.ListResponse> getBugByID(
+        gRPC.Project.SmartOffice.BugIdRequest request) {
+      return futureUnaryCall(
+          getChannel().newCall(getGetBugByIDMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_GET_BUG_LIST = 0;
-  private static final int METHODID_POST_BUGS = 1;
+  private static final int METHODID_GET_BUG_BY_ID = 1;
+  private static final int METHODID_POST_BUGS = 2;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -270,6 +334,10 @@ public final class BugReportingServiceGrpc {
       switch (methodId) {
         case METHODID_GET_BUG_LIST:
           serviceImpl.getBugList((gRPC.Project.SmartOffice.ListRequest) request,
+              (io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.ListResponse>) responseObserver);
+          break;
+        case METHODID_GET_BUG_BY_ID:
+          serviceImpl.getBugByID((gRPC.Project.SmartOffice.BugIdRequest) request,
               (io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.ListResponse>) responseObserver);
           break;
         default:
@@ -337,6 +405,7 @@ public final class BugReportingServiceGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new BugReportingServiceFileDescriptorSupplier())
               .addMethod(getGetBugListMethod())
+              .addMethod(getGetBugByIDMethod())
               .addMethod(getPostBugsMethod())
               .build();
         }
