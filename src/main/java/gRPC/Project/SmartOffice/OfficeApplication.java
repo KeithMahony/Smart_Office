@@ -14,8 +14,10 @@ import gRPC.Project.SmartOffice.BugReportingServiceGrpc.BugReportingServiceBlock
 import gRPC.Project.SmartOffice.BugReportingServiceGrpc.BugReportingServiceStub;
 import gRPC.Project.SmartOffice.ProfilingServiceGrpc.ProfilingServiceBlockingStub;
 import gRPC.Project.SmartOffice.ProfilingServiceGrpc.ProfilingServiceStub;
+import gRPC.Project.SmartOffice.TimeOffServiceGrpc.TimeOffServiceBlockingStub;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 
 import javax.swing.JLabel;
@@ -33,6 +35,9 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.awt.event.ActionEvent;
 import javax.swing.JEditorPane;
 import javax.swing.JTextArea;
@@ -49,6 +54,7 @@ public class OfficeApplication extends JFrame {
 
 	private ServiceInfo bugServiceInfo;
 	private ServiceInfo profileServiceInfo;
+	private ServiceInfo holidayServiceInfo;
 
 	private JFrame frame;
 	private JPanel contentPane;
@@ -69,6 +75,9 @@ public class OfficeApplication extends JFrame {
 	private JTextField eIdField;
 	private JTextField bugIdField;
 	private JTextField eIDBugField;
+	private JTextField textField;
+	
+	private static final Logger logger = Logger.getLogger(OfficeApplication.class.getName());
 
 	/**
 	 * Launch the application.
@@ -115,6 +124,20 @@ public class OfficeApplication extends JFrame {
 
 		ManagedChannel profileChannel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
 
+		// HOLIDAYS CHANNEL
+		String holidays_service_type = "_holidays._tcp.local.";
+		discoverService(holidays_service_type);
+
+//		host = holidayServiceInfo.getHostAddresses()[0];
+//		port = holidayServiceInfo.getPort();
+//
+//		ManagedChannel holidayChannel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
+		
+		host = "localhost";
+		port = 50053;
+
+		ManagedChannel holidayChannel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
+
 		// create stubs -- bugs
 		bugBlockingStub = BugReportingServiceGrpc.newBlockingStub(bugChannel);
 		bugAsyncStub = BugReportingServiceGrpc.newStub(bugChannel);
@@ -122,6 +145,9 @@ public class OfficeApplication extends JFrame {
 		// create stubs -- profile
 		profileBlockingStub = ProfilingServiceGrpc.newBlockingStub(profileChannel);
 		profileASyncStub = ProfilingServiceGrpc.newStub(profileChannel);
+
+		// create stubs -- time off
+		TimeOffServiceBlockingStub holidayBlockingStub = TimeOffServiceGrpc.newBlockingStub(holidayChannel);
 
 		setTitle("OfficeApplication");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -341,6 +367,28 @@ public class OfficeApplication extends JFrame {
 		lblId_1.setBounds(287, 309, 67, 14);
 		contentPane.add(lblId_1);
 
+		textField = new JTextField();
+		textField.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		textField.setColumns(10);
+		textField.setBounds(604, 87, 44, 20);
+		contentPane.add(textField);
+
+		JLabel lblEmployeeId = new JLabel("Employee ID:");
+		lblEmployeeId.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		lblEmployeeId.setBounds(539, 90, 67, 14);
+		contentPane.add(lblEmployeeId);
+
+		JButton btnHolidayDaysBalance = new JButton("Holiday Days Balance");
+		btnHolidayDaysBalance.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		btnHolidayDaysBalance.setBackground(Color.CYAN);
+		btnHolidayDaysBalance.setBounds(529, 116, 129, 23);
+		contentPane.add(btnHolidayDaysBalance);
+
+		JLabel lblTimeOff = new JLabel("Time Off");
+		lblTimeOff.setFont(new Font("Segoe UI Variable", Font.PLAIN, 16));
+		lblTimeOff.setBounds(559, 49, 240, 27);
+		contentPane.add(lblTimeOff);
+
 		// Clear Terminal Button
 		btnClearText.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -395,24 +443,22 @@ public class OfficeApplication extends JFrame {
 						textArea.append("Name: " + employee.getName() + "\n");
 						textArea.append("Job Title: " + employee.getJob() + "\n");
 						textArea.append("Occupied: " + employee.getBusy() + "\n");
-						
+
 						// Check if a bug is assigned to this employee
 						if (bugIdEntry > 0) {
 							// Get Bug by ID
 							BugIdRequest bugReq = BugIdRequest.newBuilder().setId(bugIdEntry).build();
 							ListResponse bug = bugBlockingStub.getBugByID(bugReq);
-							
+
 							textArea.append("Current Task: " + bug.getTitle() + "\n");
 							textArea.append("Task Details: " + bug.getDetails() + "\n");
-						}
-						else {
+						} else {
 							textArea.append("Current Task: None Assigned" + "\n");
 						}
 
 						System.out.println("Employee Request complete.");
 
-					}
-					else {
+					} else {
 						System.out.println("Invalid ID was entered.");
 						textArea.append("Invalid ID was entered. \n");
 					}
@@ -504,8 +550,8 @@ public class OfficeApplication extends JFrame {
 
 					while (responses.hasNext()) {
 						eListResponse temp = responses.next();
-						
-						// Get Employee's current task 
+
+						// Get Employee's current task
 						int bugIdEntry = temp.getTask();
 
 						textArea.append("-----------Employee-----------" + "\n");
@@ -513,17 +559,16 @@ public class OfficeApplication extends JFrame {
 						textArea.append("Name: " + temp.getName() + "\n");
 						textArea.append("Job Title: " + temp.getJob() + "\n");
 						textArea.append("Occupied: " + temp.getBusy() + "\n");
-						
+
 						// Check if a bug is assigned to this employee
 						if (bugIdEntry > 0) {
 							// Get Bug by ID
 							BugIdRequest bugReq = BugIdRequest.newBuilder().setId(bugIdEntry).build();
 							ListResponse bug = bugBlockingStub.getBugByID(bugReq);
-							
+
 							textArea.append("Current Task: " + bug.getTitle() + "\n");
 							textArea.append("Task Details: " + bug.getDetails() + "\n");
-						}
-						else {
+						} else {
 							textArea.append("Current Task: None Assigned" + "\n");
 						}
 
@@ -707,6 +752,28 @@ public class OfficeApplication extends JFrame {
 			}
 
 		});
+
+		// TIME OFF MANAGEMENT SERVICE
+		// Request Holiday days Balance Button
+		btnHolidayDaysBalance.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+
+				String nameEntry = eNameField.getText();
+				String passwordEntry = ePasswordField.getText();
+
+				HelloRequest req = HelloRequest.newBuilder().setName(nameEntry).build();
+
+				HelloReply response = holidayBlockingStub.sayHello(req);
+
+				textArea.append("---------Employee Log In----------" + "\n");
+				textArea.append(response.getMessage() + "\n");
+
+				System.out.println("Message: " + response.getMessage() + "\n");
+
+			}
+		});
+
 	}
 
 	private void discoverService(String service_type) {
@@ -730,6 +797,10 @@ public class OfficeApplication extends JFrame {
 					if (service_type.contains("profile")) {
 						profileServiceInfo = event.getInfo();
 						port = profileServiceInfo.getPort();
+					}
+					if (service_type.contains("holiday")) {
+						holidayServiceInfo = event.getInfo();
+						port = holidayServiceInfo.getPort();
 					}
 
 					System.out.println("Resolving " + service_type + " with properties ...");
