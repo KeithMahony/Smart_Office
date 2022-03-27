@@ -5,22 +5,22 @@ package gRPC.Project.SmartOffice;
 
 /**
  * <pre>
- * The request message containing the user's name.
+ * The response message containing the greetings
  * </pre>
  *
- * Protobuf type {@code holidays.HelloRequest}
+ * Protobuf type {@code holidays.BalanceReply}
  */
-public  final class HelloRequest extends
+public  final class BalanceReply extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:holidays.HelloRequest)
-    HelloRequestOrBuilder {
+    // @@protoc_insertion_point(message_implements:holidays.BalanceReply)
+    BalanceReplyOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use HelloRequest.newBuilder() to construct.
-  private HelloRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use BalanceReply.newBuilder() to construct.
+  private BalanceReply(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private HelloRequest() {
-    name_ = "";
+  private BalanceReply() {
+    balance_ = 0;
   }
 
   @java.lang.Override
@@ -28,7 +28,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private HelloRequest(
+  private BalanceReply(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -47,10 +47,9 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 10: {
-            java.lang.String s = input.readStringRequireUtf8();
+          case 8: {
 
-            name_ = s;
+            balance_ = input.readInt32();
             break;
           }
           default: {
@@ -74,49 +73,24 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_HelloRequest_descriptor;
+    return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_BalanceReply_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_HelloRequest_fieldAccessorTable
+    return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_BalanceReply_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            gRPC.Project.SmartOffice.HelloRequest.class, gRPC.Project.SmartOffice.HelloRequest.Builder.class);
+            gRPC.Project.SmartOffice.BalanceReply.class, gRPC.Project.SmartOffice.BalanceReply.Builder.class);
   }
 
-  public static final int NAME_FIELD_NUMBER = 1;
-  private volatile java.lang.Object name_;
+  public static final int BALANCE_FIELD_NUMBER = 1;
+  private int balance_;
   /**
-   * <code>string name = 1;</code>
+   * <code>int32 balance = 1;</code>
    */
-  public java.lang.String getName() {
-    java.lang.Object ref = name_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      name_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>string name = 1;</code>
-   */
-  public com.google.protobuf.ByteString
-      getNameBytes() {
-    java.lang.Object ref = name_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      name_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
+  public int getBalance() {
+    return balance_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -133,8 +107,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getNameBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
+    if (balance_ != 0) {
+      output.writeInt32(1, balance_);
     }
     unknownFields.writeTo(output);
   }
@@ -145,8 +119,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getNameBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
+    if (balance_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(1, balance_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -158,14 +133,14 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof gRPC.Project.SmartOffice.HelloRequest)) {
+    if (!(obj instanceof gRPC.Project.SmartOffice.BalanceReply)) {
       return super.equals(obj);
     }
-    gRPC.Project.SmartOffice.HelloRequest other = (gRPC.Project.SmartOffice.HelloRequest) obj;
+    gRPC.Project.SmartOffice.BalanceReply other = (gRPC.Project.SmartOffice.BalanceReply) obj;
 
     boolean result = true;
-    result = result && getName()
-        .equals(other.getName());
+    result = result && (getBalance()
+        == other.getBalance());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -177,76 +152,76 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + NAME_FIELD_NUMBER;
-    hash = (53 * hash) + getName().hashCode();
+    hash = (37 * hash) + BALANCE_FIELD_NUMBER;
+    hash = (53 * hash) + getBalance();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static gRPC.Project.SmartOffice.HelloRequest parseFrom(
+  public static gRPC.Project.SmartOffice.BalanceReply parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static gRPC.Project.SmartOffice.HelloRequest parseFrom(
+  public static gRPC.Project.SmartOffice.BalanceReply parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static gRPC.Project.SmartOffice.HelloRequest parseFrom(
+  public static gRPC.Project.SmartOffice.BalanceReply parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static gRPC.Project.SmartOffice.HelloRequest parseFrom(
+  public static gRPC.Project.SmartOffice.BalanceReply parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static gRPC.Project.SmartOffice.HelloRequest parseFrom(byte[] data)
+  public static gRPC.Project.SmartOffice.BalanceReply parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static gRPC.Project.SmartOffice.HelloRequest parseFrom(
+  public static gRPC.Project.SmartOffice.BalanceReply parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static gRPC.Project.SmartOffice.HelloRequest parseFrom(java.io.InputStream input)
+  public static gRPC.Project.SmartOffice.BalanceReply parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static gRPC.Project.SmartOffice.HelloRequest parseFrom(
+  public static gRPC.Project.SmartOffice.BalanceReply parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static gRPC.Project.SmartOffice.HelloRequest parseDelimitedFrom(java.io.InputStream input)
+  public static gRPC.Project.SmartOffice.BalanceReply parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static gRPC.Project.SmartOffice.HelloRequest parseDelimitedFrom(
+  public static gRPC.Project.SmartOffice.BalanceReply parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static gRPC.Project.SmartOffice.HelloRequest parseFrom(
+  public static gRPC.Project.SmartOffice.BalanceReply parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static gRPC.Project.SmartOffice.HelloRequest parseFrom(
+  public static gRPC.Project.SmartOffice.BalanceReply parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -259,7 +234,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(gRPC.Project.SmartOffice.HelloRequest prototype) {
+  public static Builder newBuilder(gRPC.Project.SmartOffice.BalanceReply prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -276,29 +251,29 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * The request message containing the user's name.
+   * The response message containing the greetings
    * </pre>
    *
-   * Protobuf type {@code holidays.HelloRequest}
+   * Protobuf type {@code holidays.BalanceReply}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:holidays.HelloRequest)
-      gRPC.Project.SmartOffice.HelloRequestOrBuilder {
+      // @@protoc_insertion_point(builder_implements:holidays.BalanceReply)
+      gRPC.Project.SmartOffice.BalanceReplyOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_HelloRequest_descriptor;
+      return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_BalanceReply_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_HelloRequest_fieldAccessorTable
+      return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_BalanceReply_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              gRPC.Project.SmartOffice.HelloRequest.class, gRPC.Project.SmartOffice.HelloRequest.Builder.class);
+              gRPC.Project.SmartOffice.BalanceReply.class, gRPC.Project.SmartOffice.BalanceReply.Builder.class);
     }
 
-    // Construct using gRPC.Project.SmartOffice.HelloRequest.newBuilder()
+    // Construct using gRPC.Project.SmartOffice.BalanceReply.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -316,7 +291,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      name_ = "";
+      balance_ = 0;
 
       return this;
     }
@@ -324,17 +299,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_HelloRequest_descriptor;
+      return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_BalanceReply_descriptor;
     }
 
     @java.lang.Override
-    public gRPC.Project.SmartOffice.HelloRequest getDefaultInstanceForType() {
-      return gRPC.Project.SmartOffice.HelloRequest.getDefaultInstance();
+    public gRPC.Project.SmartOffice.BalanceReply getDefaultInstanceForType() {
+      return gRPC.Project.SmartOffice.BalanceReply.getDefaultInstance();
     }
 
     @java.lang.Override
-    public gRPC.Project.SmartOffice.HelloRequest build() {
-      gRPC.Project.SmartOffice.HelloRequest result = buildPartial();
+    public gRPC.Project.SmartOffice.BalanceReply build() {
+      gRPC.Project.SmartOffice.BalanceReply result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -342,9 +317,9 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public gRPC.Project.SmartOffice.HelloRequest buildPartial() {
-      gRPC.Project.SmartOffice.HelloRequest result = new gRPC.Project.SmartOffice.HelloRequest(this);
-      result.name_ = name_;
+    public gRPC.Project.SmartOffice.BalanceReply buildPartial() {
+      gRPC.Project.SmartOffice.BalanceReply result = new gRPC.Project.SmartOffice.BalanceReply(this);
+      result.balance_ = balance_;
       onBuilt();
       return result;
     }
@@ -383,19 +358,18 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof gRPC.Project.SmartOffice.HelloRequest) {
-        return mergeFrom((gRPC.Project.SmartOffice.HelloRequest)other);
+      if (other instanceof gRPC.Project.SmartOffice.BalanceReply) {
+        return mergeFrom((gRPC.Project.SmartOffice.BalanceReply)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(gRPC.Project.SmartOffice.HelloRequest other) {
-      if (other == gRPC.Project.SmartOffice.HelloRequest.getDefaultInstance()) return this;
-      if (!other.getName().isEmpty()) {
-        name_ = other.name_;
-        onChanged();
+    public Builder mergeFrom(gRPC.Project.SmartOffice.BalanceReply other) {
+      if (other == gRPC.Project.SmartOffice.BalanceReply.getDefaultInstance()) return this;
+      if (other.getBalance() != 0) {
+        setBalance(other.getBalance());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -412,11 +386,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      gRPC.Project.SmartOffice.HelloRequest parsedMessage = null;
+      gRPC.Project.SmartOffice.BalanceReply parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (gRPC.Project.SmartOffice.HelloRequest) e.getUnfinishedMessage();
+        parsedMessage = (gRPC.Project.SmartOffice.BalanceReply) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -426,71 +400,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object name_ = "";
+    private int balance_ ;
     /**
-     * <code>string name = 1;</code>
+     * <code>int32 balance = 1;</code>
      */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        name_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
+    public int getBalance() {
+      return balance_;
     }
     /**
-     * <code>string name = 1;</code>
+     * <code>int32 balance = 1;</code>
      */
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>string name = 1;</code>
-     */
-    public Builder setName(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      name_ = value;
+    public Builder setBalance(int value) {
+      
+      balance_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string name = 1;</code>
+     * <code>int32 balance = 1;</code>
      */
-    public Builder clearName() {
+    public Builder clearBalance() {
       
-      name_ = getDefaultInstance().getName();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string name = 1;</code>
-     */
-    public Builder setNameBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      name_ = value;
+      balance_ = 0;
       onChanged();
       return this;
     }
@@ -507,41 +438,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:holidays.HelloRequest)
+    // @@protoc_insertion_point(builder_scope:holidays.BalanceReply)
   }
 
-  // @@protoc_insertion_point(class_scope:holidays.HelloRequest)
-  private static final gRPC.Project.SmartOffice.HelloRequest DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:holidays.BalanceReply)
+  private static final gRPC.Project.SmartOffice.BalanceReply DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new gRPC.Project.SmartOffice.HelloRequest();
+    DEFAULT_INSTANCE = new gRPC.Project.SmartOffice.BalanceReply();
   }
 
-  public static gRPC.Project.SmartOffice.HelloRequest getDefaultInstance() {
+  public static gRPC.Project.SmartOffice.BalanceReply getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<HelloRequest>
-      PARSER = new com.google.protobuf.AbstractParser<HelloRequest>() {
+  private static final com.google.protobuf.Parser<BalanceReply>
+      PARSER = new com.google.protobuf.AbstractParser<BalanceReply>() {
     @java.lang.Override
-    public HelloRequest parsePartialFrom(
+    public BalanceReply parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new HelloRequest(input, extensionRegistry);
+      return new BalanceReply(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<HelloRequest> parser() {
+  public static com.google.protobuf.Parser<BalanceReply> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<HelloRequest> getParserForType() {
+  public com.google.protobuf.Parser<BalanceReply> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public gRPC.Project.SmartOffice.HelloRequest getDefaultInstanceForType() {
+  public gRPC.Project.SmartOffice.BalanceReply getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

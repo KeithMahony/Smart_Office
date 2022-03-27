@@ -4,23 +4,21 @@ option java_multiple_files = true;
 option java_package = "gRPC.Project.SmartOffice";
 option java_outer_classname = "HolidayService";
 
-
-
 package holidays;
 
 // The greeting service definition.
 service TimeOffService {
   // Sends a greeting
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
+  rpc getBalance (IdRequest) returns (BalanceReply) {}
 
 }
 
 // The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+message IdRequest {
+  int32 id = 1;
 }
 
 // The response message containing the greetings
-message HelloReply {
-  string message = 1;
+message BalanceReply {
+  int32 balance = 1;
 }

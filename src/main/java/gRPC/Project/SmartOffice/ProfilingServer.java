@@ -149,7 +149,9 @@ public class ProfilingServer extends ProfilingServiceImplBase {
 		if ((id > 0) && (id < 5)) {
 
 			eListResponse reply = eListResponse.newBuilder().setName(eNames[id]).setJob(jobs[id]).setBusy(busy[id])
-					.setTask(tasksAssigned[id]).build();
+					.setTask(tasksAssigned[id]).build();	
+			
+			
 			responseObserver.onNext(reply);
 
 //					 2 second delay

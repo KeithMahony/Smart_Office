@@ -5,22 +5,22 @@ package gRPC.Project.SmartOffice;
 
 /**
  * <pre>
- * The response message containing the greetings
+ * The request message containing the user's name.
  * </pre>
  *
- * Protobuf type {@code holidays.HelloReply}
+ * Protobuf type {@code holidays.IdRequest}
  */
-public  final class HelloReply extends
+public  final class IdRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:holidays.HelloReply)
-    HelloReplyOrBuilder {
+    // @@protoc_insertion_point(message_implements:holidays.IdRequest)
+    IdRequestOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use HelloReply.newBuilder() to construct.
-  private HelloReply(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use IdRequest.newBuilder() to construct.
+  private IdRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private HelloReply() {
-    message_ = "";
+  private IdRequest() {
+    id_ = 0;
   }
 
   @java.lang.Override
@@ -28,7 +28,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private HelloReply(
+  private IdRequest(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -47,10 +47,9 @@ private static final long serialVersionUID = 0L;
           case 0:
             done = true;
             break;
-          case 10: {
-            java.lang.String s = input.readStringRequireUtf8();
+          case 8: {
 
-            message_ = s;
+            id_ = input.readInt32();
             break;
           }
           default: {
@@ -74,49 +73,24 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_HelloReply_descriptor;
+    return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_IdRequest_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_HelloReply_fieldAccessorTable
+    return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_IdRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            gRPC.Project.SmartOffice.HelloReply.class, gRPC.Project.SmartOffice.HelloReply.Builder.class);
+            gRPC.Project.SmartOffice.IdRequest.class, gRPC.Project.SmartOffice.IdRequest.Builder.class);
   }
 
-  public static final int MESSAGE_FIELD_NUMBER = 1;
-  private volatile java.lang.Object message_;
+  public static final int ID_FIELD_NUMBER = 1;
+  private int id_;
   /**
-   * <code>string message = 1;</code>
+   * <code>int32 id = 1;</code>
    */
-  public java.lang.String getMessage() {
-    java.lang.Object ref = message_;
-    if (ref instanceof java.lang.String) {
-      return (java.lang.String) ref;
-    } else {
-      com.google.protobuf.ByteString bs = 
-          (com.google.protobuf.ByteString) ref;
-      java.lang.String s = bs.toStringUtf8();
-      message_ = s;
-      return s;
-    }
-  }
-  /**
-   * <code>string message = 1;</code>
-   */
-  public com.google.protobuf.ByteString
-      getMessageBytes() {
-    java.lang.Object ref = message_;
-    if (ref instanceof java.lang.String) {
-      com.google.protobuf.ByteString b = 
-          com.google.protobuf.ByteString.copyFromUtf8(
-              (java.lang.String) ref);
-      message_ = b;
-      return b;
-    } else {
-      return (com.google.protobuf.ByteString) ref;
-    }
+  public int getId() {
+    return id_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -133,8 +107,8 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
-    if (!getMessageBytes().isEmpty()) {
-      com.google.protobuf.GeneratedMessageV3.writeString(output, 1, message_);
+    if (id_ != 0) {
+      output.writeInt32(1, id_);
     }
     unknownFields.writeTo(output);
   }
@@ -145,8 +119,9 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
-    if (!getMessageBytes().isEmpty()) {
-      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, message_);
+    if (id_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(1, id_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -158,14 +133,14 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof gRPC.Project.SmartOffice.HelloReply)) {
+    if (!(obj instanceof gRPC.Project.SmartOffice.IdRequest)) {
       return super.equals(obj);
     }
-    gRPC.Project.SmartOffice.HelloReply other = (gRPC.Project.SmartOffice.HelloReply) obj;
+    gRPC.Project.SmartOffice.IdRequest other = (gRPC.Project.SmartOffice.IdRequest) obj;
 
     boolean result = true;
-    result = result && getMessage()
-        .equals(other.getMessage());
+    result = result && (getId()
+        == other.getId());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -177,76 +152,76 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
-    hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
-    hash = (53 * hash) + getMessage().hashCode();
+    hash = (37 * hash) + ID_FIELD_NUMBER;
+    hash = (53 * hash) + getId();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static gRPC.Project.SmartOffice.HelloReply parseFrom(
+  public static gRPC.Project.SmartOffice.IdRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static gRPC.Project.SmartOffice.HelloReply parseFrom(
+  public static gRPC.Project.SmartOffice.IdRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static gRPC.Project.SmartOffice.HelloReply parseFrom(
+  public static gRPC.Project.SmartOffice.IdRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static gRPC.Project.SmartOffice.HelloReply parseFrom(
+  public static gRPC.Project.SmartOffice.IdRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static gRPC.Project.SmartOffice.HelloReply parseFrom(byte[] data)
+  public static gRPC.Project.SmartOffice.IdRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static gRPC.Project.SmartOffice.HelloReply parseFrom(
+  public static gRPC.Project.SmartOffice.IdRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static gRPC.Project.SmartOffice.HelloReply parseFrom(java.io.InputStream input)
+  public static gRPC.Project.SmartOffice.IdRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static gRPC.Project.SmartOffice.HelloReply parseFrom(
+  public static gRPC.Project.SmartOffice.IdRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static gRPC.Project.SmartOffice.HelloReply parseDelimitedFrom(java.io.InputStream input)
+  public static gRPC.Project.SmartOffice.IdRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static gRPC.Project.SmartOffice.HelloReply parseDelimitedFrom(
+  public static gRPC.Project.SmartOffice.IdRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static gRPC.Project.SmartOffice.HelloReply parseFrom(
+  public static gRPC.Project.SmartOffice.IdRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static gRPC.Project.SmartOffice.HelloReply parseFrom(
+  public static gRPC.Project.SmartOffice.IdRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -259,7 +234,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(gRPC.Project.SmartOffice.HelloReply prototype) {
+  public static Builder newBuilder(gRPC.Project.SmartOffice.IdRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -276,29 +251,29 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * The response message containing the greetings
+   * The request message containing the user's name.
    * </pre>
    *
-   * Protobuf type {@code holidays.HelloReply}
+   * Protobuf type {@code holidays.IdRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:holidays.HelloReply)
-      gRPC.Project.SmartOffice.HelloReplyOrBuilder {
+      // @@protoc_insertion_point(builder_implements:holidays.IdRequest)
+      gRPC.Project.SmartOffice.IdRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_HelloReply_descriptor;
+      return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_IdRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_HelloReply_fieldAccessorTable
+      return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_IdRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              gRPC.Project.SmartOffice.HelloReply.class, gRPC.Project.SmartOffice.HelloReply.Builder.class);
+              gRPC.Project.SmartOffice.IdRequest.class, gRPC.Project.SmartOffice.IdRequest.Builder.class);
     }
 
-    // Construct using gRPC.Project.SmartOffice.HelloReply.newBuilder()
+    // Construct using gRPC.Project.SmartOffice.IdRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -316,7 +291,7 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public Builder clear() {
       super.clear();
-      message_ = "";
+      id_ = 0;
 
       return this;
     }
@@ -324,17 +299,17 @@ private static final long serialVersionUID = 0L;
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_HelloReply_descriptor;
+      return gRPC.Project.SmartOffice.HolidayService.internal_static_holidays_IdRequest_descriptor;
     }
 
     @java.lang.Override
-    public gRPC.Project.SmartOffice.HelloReply getDefaultInstanceForType() {
-      return gRPC.Project.SmartOffice.HelloReply.getDefaultInstance();
+    public gRPC.Project.SmartOffice.IdRequest getDefaultInstanceForType() {
+      return gRPC.Project.SmartOffice.IdRequest.getDefaultInstance();
     }
 
     @java.lang.Override
-    public gRPC.Project.SmartOffice.HelloReply build() {
-      gRPC.Project.SmartOffice.HelloReply result = buildPartial();
+    public gRPC.Project.SmartOffice.IdRequest build() {
+      gRPC.Project.SmartOffice.IdRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -342,9 +317,9 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public gRPC.Project.SmartOffice.HelloReply buildPartial() {
-      gRPC.Project.SmartOffice.HelloReply result = new gRPC.Project.SmartOffice.HelloReply(this);
-      result.message_ = message_;
+    public gRPC.Project.SmartOffice.IdRequest buildPartial() {
+      gRPC.Project.SmartOffice.IdRequest result = new gRPC.Project.SmartOffice.IdRequest(this);
+      result.id_ = id_;
       onBuilt();
       return result;
     }
@@ -383,19 +358,18 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof gRPC.Project.SmartOffice.HelloReply) {
-        return mergeFrom((gRPC.Project.SmartOffice.HelloReply)other);
+      if (other instanceof gRPC.Project.SmartOffice.IdRequest) {
+        return mergeFrom((gRPC.Project.SmartOffice.IdRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(gRPC.Project.SmartOffice.HelloReply other) {
-      if (other == gRPC.Project.SmartOffice.HelloReply.getDefaultInstance()) return this;
-      if (!other.getMessage().isEmpty()) {
-        message_ = other.message_;
-        onChanged();
+    public Builder mergeFrom(gRPC.Project.SmartOffice.IdRequest other) {
+      if (other == gRPC.Project.SmartOffice.IdRequest.getDefaultInstance()) return this;
+      if (other.getId() != 0) {
+        setId(other.getId());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -412,11 +386,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      gRPC.Project.SmartOffice.HelloReply parsedMessage = null;
+      gRPC.Project.SmartOffice.IdRequest parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (gRPC.Project.SmartOffice.HelloReply) e.getUnfinishedMessage();
+        parsedMessage = (gRPC.Project.SmartOffice.IdRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -426,71 +400,28 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.lang.Object message_ = "";
+    private int id_ ;
     /**
-     * <code>string message = 1;</code>
+     * <code>int32 id = 1;</code>
      */
-    public java.lang.String getMessage() {
-      java.lang.Object ref = message_;
-      if (!(ref instanceof java.lang.String)) {
-        com.google.protobuf.ByteString bs =
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        message_ = s;
-        return s;
-      } else {
-        return (java.lang.String) ref;
-      }
+    public int getId() {
+      return id_;
     }
     /**
-     * <code>string message = 1;</code>
+     * <code>int32 id = 1;</code>
      */
-    public com.google.protobuf.ByteString
-        getMessageBytes() {
-      java.lang.Object ref = message_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        message_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-    /**
-     * <code>string message = 1;</code>
-     */
-    public Builder setMessage(
-        java.lang.String value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  
-      message_ = value;
+    public Builder setId(int value) {
+      
+      id_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>string message = 1;</code>
+     * <code>int32 id = 1;</code>
      */
-    public Builder clearMessage() {
+    public Builder clearId() {
       
-      message_ = getDefaultInstance().getMessage();
-      onChanged();
-      return this;
-    }
-    /**
-     * <code>string message = 1;</code>
-     */
-    public Builder setMessageBytes(
-        com.google.protobuf.ByteString value) {
-      if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-      
-      message_ = value;
+      id_ = 0;
       onChanged();
       return this;
     }
@@ -507,41 +438,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:holidays.HelloReply)
+    // @@protoc_insertion_point(builder_scope:holidays.IdRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:holidays.HelloReply)
-  private static final gRPC.Project.SmartOffice.HelloReply DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:holidays.IdRequest)
+  private static final gRPC.Project.SmartOffice.IdRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new gRPC.Project.SmartOffice.HelloReply();
+    DEFAULT_INSTANCE = new gRPC.Project.SmartOffice.IdRequest();
   }
 
-  public static gRPC.Project.SmartOffice.HelloReply getDefaultInstance() {
+  public static gRPC.Project.SmartOffice.IdRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<HelloReply>
-      PARSER = new com.google.protobuf.AbstractParser<HelloReply>() {
+  private static final com.google.protobuf.Parser<IdRequest>
+      PARSER = new com.google.protobuf.AbstractParser<IdRequest>() {
     @java.lang.Override
-    public HelloReply parsePartialFrom(
+    public IdRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new HelloReply(input, extensionRegistry);
+      return new IdRequest(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<HelloReply> parser() {
+  public static com.google.protobuf.Parser<IdRequest> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<HelloReply> getParserForType() {
+  public com.google.protobuf.Parser<IdRequest> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public gRPC.Project.SmartOffice.HelloReply getDefaultInstanceForType() {
+  public gRPC.Project.SmartOffice.IdRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

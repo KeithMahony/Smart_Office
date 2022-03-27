@@ -15,15 +15,15 @@ public final class HolidayService {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_holidays_HelloRequest_descriptor;
+    internal_static_holidays_IdRequest_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_holidays_HelloRequest_fieldAccessorTable;
+      internal_static_holidays_IdRequest_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_holidays_HelloReply_descriptor;
+    internal_static_holidays_BalanceReply_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_holidays_HelloReply_fieldAccessorTable;
+      internal_static_holidays_BalanceReply_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -33,12 +33,12 @@ public final class HolidayService {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016holidays.proto\022\010holidays\"\034\n\014HelloReque" +
-      "st\022\014\n\004name\030\001 \001(\t\"\035\n\nHelloReply\022\017\n\007messag" +
-      "e\030\001 \001(\t2L\n\016TimeOffService\022:\n\010SayHello\022\026." +
-      "holidays.HelloRequest\032\024.holidays.HelloRe" +
-      "ply\"\000B,\n\030gRPC.Project.SmartOfficeB\016Holid" +
-      "ayServiceP\001b\006proto3"
+      "\n\016holidays.proto\022\010holidays\"\027\n\tIdRequest\022" +
+      "\n\n\002id\030\001 \001(\005\"\037\n\014BalanceReply\022\017\n\007balance\030\001" +
+      " \001(\0052M\n\016TimeOffService\022;\n\ngetBalance\022\023.h" +
+      "olidays.IdRequest\032\026.holidays.BalanceRepl" +
+      "y\"\000B,\n\030gRPC.Project.SmartOfficeB\016Holiday" +
+      "ServiceP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -52,18 +52,18 @@ public final class HolidayService {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_holidays_HelloRequest_descriptor =
+    internal_static_holidays_IdRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_holidays_HelloRequest_fieldAccessorTable = new
+    internal_static_holidays_IdRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_holidays_HelloRequest_descriptor,
-        new java.lang.String[] { "Name", });
-    internal_static_holidays_HelloReply_descriptor =
+        internal_static_holidays_IdRequest_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_holidays_BalanceReply_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_holidays_HelloReply_fieldAccessorTable = new
+    internal_static_holidays_BalanceReply_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_holidays_HelloReply_descriptor,
-        new java.lang.String[] { "Message", });
+        internal_static_holidays_BalanceReply_descriptor,
+        new java.lang.String[] { "Balance", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

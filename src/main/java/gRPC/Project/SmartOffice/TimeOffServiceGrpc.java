@@ -30,36 +30,36 @@ public final class TimeOffServiceGrpc {
   public static final String SERVICE_NAME = "holidays.TimeOffService";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.HelloRequest,
-      gRPC.Project.SmartOffice.HelloReply> getSayHelloMethod;
+  private static volatile io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.IdRequest,
+      gRPC.Project.SmartOffice.BalanceReply> getGetBalanceMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "SayHello",
-      requestType = gRPC.Project.SmartOffice.HelloRequest.class,
-      responseType = gRPC.Project.SmartOffice.HelloReply.class,
+      fullMethodName = SERVICE_NAME + '/' + "getBalance",
+      requestType = gRPC.Project.SmartOffice.IdRequest.class,
+      responseType = gRPC.Project.SmartOffice.BalanceReply.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.HelloRequest,
-      gRPC.Project.SmartOffice.HelloReply> getSayHelloMethod() {
-    io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.HelloRequest, gRPC.Project.SmartOffice.HelloReply> getSayHelloMethod;
-    if ((getSayHelloMethod = TimeOffServiceGrpc.getSayHelloMethod) == null) {
+  public static io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.IdRequest,
+      gRPC.Project.SmartOffice.BalanceReply> getGetBalanceMethod() {
+    io.grpc.MethodDescriptor<gRPC.Project.SmartOffice.IdRequest, gRPC.Project.SmartOffice.BalanceReply> getGetBalanceMethod;
+    if ((getGetBalanceMethod = TimeOffServiceGrpc.getGetBalanceMethod) == null) {
       synchronized (TimeOffServiceGrpc.class) {
-        if ((getSayHelloMethod = TimeOffServiceGrpc.getSayHelloMethod) == null) {
-          TimeOffServiceGrpc.getSayHelloMethod = getSayHelloMethod = 
-              io.grpc.MethodDescriptor.<gRPC.Project.SmartOffice.HelloRequest, gRPC.Project.SmartOffice.HelloReply>newBuilder()
+        if ((getGetBalanceMethod = TimeOffServiceGrpc.getGetBalanceMethod) == null) {
+          TimeOffServiceGrpc.getGetBalanceMethod = getGetBalanceMethod = 
+              io.grpc.MethodDescriptor.<gRPC.Project.SmartOffice.IdRequest, gRPC.Project.SmartOffice.BalanceReply>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
-                  "holidays.TimeOffService", "SayHello"))
+                  "holidays.TimeOffService", "getBalance"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  gRPC.Project.SmartOffice.HelloRequest.getDefaultInstance()))
+                  gRPC.Project.SmartOffice.IdRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  gRPC.Project.SmartOffice.HelloReply.getDefaultInstance()))
-                  .setSchemaDescriptor(new TimeOffServiceMethodDescriptorSupplier("SayHello"))
+                  gRPC.Project.SmartOffice.BalanceReply.getDefaultInstance()))
+                  .setSchemaDescriptor(new TimeOffServiceMethodDescriptorSupplier("getBalance"))
                   .build();
           }
         }
      }
-     return getSayHelloMethod;
+     return getGetBalanceMethod;
   }
 
   /**
@@ -97,20 +97,20 @@ public final class TimeOffServiceGrpc {
      * Sends a greeting
      * </pre>
      */
-    public void sayHello(gRPC.Project.SmartOffice.HelloRequest request,
-        io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.HelloReply> responseObserver) {
-      asyncUnimplementedUnaryCall(getSayHelloMethod(), responseObserver);
+    public void getBalance(gRPC.Project.SmartOffice.IdRequest request,
+        io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.BalanceReply> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetBalanceMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getSayHelloMethod(),
+            getGetBalanceMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                gRPC.Project.SmartOffice.HelloRequest,
-                gRPC.Project.SmartOffice.HelloReply>(
-                  this, METHODID_SAY_HELLO)))
+                gRPC.Project.SmartOffice.IdRequest,
+                gRPC.Project.SmartOffice.BalanceReply>(
+                  this, METHODID_GET_BALANCE)))
           .build();
     }
   }
@@ -141,10 +141,10 @@ public final class TimeOffServiceGrpc {
      * Sends a greeting
      * </pre>
      */
-    public void sayHello(gRPC.Project.SmartOffice.HelloRequest request,
-        io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.HelloReply> responseObserver) {
+    public void getBalance(gRPC.Project.SmartOffice.IdRequest request,
+        io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.BalanceReply> responseObserver) {
       asyncUnaryCall(
-          getChannel().newCall(getSayHelloMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getGetBalanceMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -174,9 +174,9 @@ public final class TimeOffServiceGrpc {
      * Sends a greeting
      * </pre>
      */
-    public gRPC.Project.SmartOffice.HelloReply sayHello(gRPC.Project.SmartOffice.HelloRequest request) {
+    public gRPC.Project.SmartOffice.BalanceReply getBalance(gRPC.Project.SmartOffice.IdRequest request) {
       return blockingUnaryCall(
-          getChannel(), getSayHelloMethod(), getCallOptions(), request);
+          getChannel(), getGetBalanceMethod(), getCallOptions(), request);
     }
   }
 
@@ -206,14 +206,14 @@ public final class TimeOffServiceGrpc {
      * Sends a greeting
      * </pre>
      */
-    public com.google.common.util.concurrent.ListenableFuture<gRPC.Project.SmartOffice.HelloReply> sayHello(
-        gRPC.Project.SmartOffice.HelloRequest request) {
+    public com.google.common.util.concurrent.ListenableFuture<gRPC.Project.SmartOffice.BalanceReply> getBalance(
+        gRPC.Project.SmartOffice.IdRequest request) {
       return futureUnaryCall(
-          getChannel().newCall(getSayHelloMethod(), getCallOptions()), request);
+          getChannel().newCall(getGetBalanceMethod(), getCallOptions()), request);
     }
   }
 
-  private static final int METHODID_SAY_HELLO = 0;
+  private static final int METHODID_GET_BALANCE = 0;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -232,9 +232,9 @@ public final class TimeOffServiceGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_SAY_HELLO:
-          serviceImpl.sayHello((gRPC.Project.SmartOffice.HelloRequest) request,
-              (io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.HelloReply>) responseObserver);
+        case METHODID_GET_BALANCE:
+          serviceImpl.getBalance((gRPC.Project.SmartOffice.IdRequest) request,
+              (io.grpc.stub.StreamObserver<gRPC.Project.SmartOffice.BalanceReply>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -297,7 +297,7 @@ public final class TimeOffServiceGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new TimeOffServiceFileDescriptorSupplier())
-              .addMethod(getSayHelloMethod())
+              .addMethod(getGetBalanceMethod())
               .build();
         }
       }

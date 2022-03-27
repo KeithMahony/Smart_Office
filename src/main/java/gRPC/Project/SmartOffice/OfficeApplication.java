@@ -75,8 +75,8 @@ public class OfficeApplication extends JFrame {
 	private JTextField eIdField;
 	private JTextField bugIdField;
 	private JTextField eIDBugField;
-	private JTextField textField;
-	
+	private JTextField eIdHolidayField;
+
 	private static final Logger logger = Logger.getLogger(OfficeApplication.class.getName());
 
 	/**
@@ -132,7 +132,7 @@ public class OfficeApplication extends JFrame {
 //		port = holidayServiceInfo.getPort();
 //
 //		ManagedChannel holidayChannel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
-		
+
 		host = "localhost";
 		port = 50053;
 
@@ -367,11 +367,11 @@ public class OfficeApplication extends JFrame {
 		lblId_1.setBounds(287, 309, 67, 14);
 		contentPane.add(lblId_1);
 
-		textField = new JTextField();
-		textField.setFont(new Font("Segoe UI", Font.PLAIN, 10));
-		textField.setColumns(10);
-		textField.setBounds(604, 87, 44, 20);
-		contentPane.add(textField);
+		eIdHolidayField = new JTextField();
+		eIdHolidayField.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		eIdHolidayField.setColumns(10);
+		eIdHolidayField.setBounds(604, 87, 44, 20);
+		contentPane.add(eIdHolidayField);
 
 		JLabel lblEmployeeId = new JLabel("Employee ID:");
 		lblEmployeeId.setFont(new Font("Segoe UI", Font.PLAIN, 10));
@@ -388,6 +388,26 @@ public class OfficeApplication extends JFrame {
 		lblTimeOff.setFont(new Font("Segoe UI Variable", Font.PLAIN, 16));
 		lblTimeOff.setBounds(559, 49, 240, 27);
 		contentPane.add(lblTimeOff);
+		
+		JLabel lblId_1_1 = new JLabel("(1-4)");
+		lblId_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		lblId_1_1.setBounds(408, 307, 67, 14);
+		contentPane.add(lblId_1_1);
+		
+		JLabel lblId_1_1_1 = new JLabel("(1-4)");
+		lblId_1_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		lblId_1_1_1.setBounds(408, 198, 67, 14);
+		contentPane.add(lblId_1_1_1);
+		
+		JLabel lblId_1_1_1_1 = new JLabel("(1-4)");
+		lblId_1_1_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		lblId_1_1_1_1.setBounds(655, 90, 67, 14);
+		contentPane.add(lblId_1_1_1_1);
+		
+		JLabel lblId_1_1_2 = new JLabel("(1-4)");
+		lblId_1_1_2.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		lblId_1_1_2.setBounds(408, 337, 67, 14);
+		contentPane.add(lblId_1_1_2);
 
 		// Clear Terminal Button
 		btnClearText.addActionListener(new ActionListener() {
@@ -490,11 +510,11 @@ public class OfficeApplication extends JFrame {
 					// basic front end validation and feedback
 					if ((idEntry > 0) && (idEntry < 5) && (bugIdEntry > 0) && (bugIdEntry < 5)) {
 
-						// Get Employee by ID
+						// Get Employee by ID - employee server
 						eListRequest req = eListRequest.newBuilder().setId(idEntry).build();
 						Iterator<eListResponse> response = profileBlockingStub.getEmployeeList(req);
 
-						// Get Bug by ID
+						// Get Bug by ID - bug server
 						BugIdRequest bugReq = BugIdRequest.newBuilder().setId(bugIdEntry).build();
 						ListResponse bug = bugBlockingStub.getBugByID(bugReq);
 
@@ -758,19 +778,45 @@ public class OfficeApplication extends JFrame {
 		btnHolidayDaysBalance.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				String host = "localhost";
+				int port = 50053;
 
-				String nameEntry = eNameField.getText();
-				String passwordEntry = ePasswordField.getText();
+				ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
 
-				HelloRequest req = HelloRequest.newBuilder().setName(nameEntry).build();
+				TimeOffServiceBlockingStub blockingStub = TimeOffServiceGrpc.newBlockingStub(channel);
 
-				HelloReply response = holidayBlockingStub.sayHello(req);
+				Python_HolidaysClient client = new Python_HolidaysClient();
 
-				textArea.append("---------Employee Log In----------" + "\n");
-				textArea.append(response.getMessage() + "\n");
+				try {
 
-				System.out.println("Message: " + response.getMessage() + "\n");
+					int idEntry = Integer.parseInt(eIdHolidayField.getText());
 
+					if ((idEntry > 0) && (idEntry < 5)) {
+						
+						IdRequest request = IdRequest.newBuilder().setId(idEntry).build();
+						BalanceReply response = blockingStub.getBalance(request);
+						
+						logger.info("Greeting: " + response.getBalance());
+						textArea.append("Holiday Days Remaining: " + response.getBalance() + "\n");
+						
+					} else {
+						textArea.append("Invalid Employee ID entered" + "\n");
+					}
+
+				} catch (StatusRuntimeException | NumberFormatException sR) {
+					System.out.println("An invalid Employee ID may have been entered.");
+					textArea.append("Invalid Employee ID entered." + "\n");
+					return;
+
+				} finally {
+					// shutdown channel
+					try {
+						channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+					} catch (InterruptedException | NumberFormatException ex) {
+//						ex.printStackTrace();
+						System.out.println("An invalid Employee ID may have been entered.");
+					}
+				}
 			}
 		});
 
@@ -797,10 +843,6 @@ public class OfficeApplication extends JFrame {
 					if (service_type.contains("profile")) {
 						profileServiceInfo = event.getInfo();
 						port = profileServiceInfo.getPort();
-					}
-					if (service_type.contains("holiday")) {
-						holidayServiceInfo = event.getInfo();
-						port = holidayServiceInfo.getPort();
 					}
 
 					System.out.println("Resolving " + service_type + " with properties ...");
